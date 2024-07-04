@@ -14,6 +14,7 @@ CREATE TABLE `user` (
                         `state` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态 0正常 1注销',
                         `create_date` datetime NOT NULL COMMENT '创建时间',
                         `delete_date` datetime DEFAULT NULL COMMENT '注销时间',
+                        `login_state` tinyint(4) NOT NULL DEFAULT '0' COMMENT '登录状态 0未登录 1登录',
                         PRIMARY KEY (`uid`),
                         UNIQUE KEY `uid` (`uid`),
                         UNIQUE KEY `account` (`account`),

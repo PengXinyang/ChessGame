@@ -27,4 +27,5 @@ public class User {
     private Date createDate;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Beijing")
     private Date deleteDate;
+    private int loginState;//登录状态，0表示未登录，1表示已登录
 }

@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
                 updateWrapper.set("state", 0);
                 updateWrapper.set("create_date",new Date());
                 updateWrapper.set("delete_date",null);
-                userMapper.update(queryUser, updateWrapper);
+                userMapper.update(updateWrapper);
                 result.setCode(200);
                 result.setMessage("用户注册成功");
             }
@@ -95,7 +95,7 @@ public class UserServiceImpl implements UserService {
         updateWrapper.eq("uid", uid);
         updateWrapper.set("state", 1);
         updateWrapper.set("delete_date",new Date());
-        userMapper.update(user, updateWrapper);
+        userMapper.update(updateWrapper);
         result.setMessage("已删除账户");
         return result;
     }
@@ -122,6 +122,11 @@ public class UserServiceImpl implements UserService {
             result.setMessage("密码错误，请重新输入");
             return result;
         }
+        UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("account", account);
+        updateWrapper.set("login_state", 1);
+        userMapper.update(updateWrapper);
+        user.setLoginState(1);
         result.setData(user);
         result.setMessage("登录成功");
         return result;
@@ -131,8 +136,22 @@ public class UserServiceImpl implements UserService {
      * 用户登出
      */
     @Override
-    public ResponseResult logout() {
-        return null;
+    public ResponseResult logout(int uid) {
+        ResponseResult result = new ResponseResult();
+        User user = userMapper.selectById(uid);
+        if(user == null){
+            result.setCode(403);
+            result.setMessage("用户不存在");
+            return result;
+        }
+        UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("uid", uid);
+        updateWrapper.set("login_state", 0);
+        userMapper.update(updateWrapper);
+        user.setLoginState(0);
+        result.setData(user);
+        result.setMessage("登出成功");
+        return result;
     }
 
     /**
@@ -166,7 +185,7 @@ public class UserServiceImpl implements UserService {
         UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
         updateWrapper.eq("account", account);
         updateWrapper.set("password", newPassword);
-        userMapper.update(user, updateWrapper);
+        userMapper.update(updateWrapper);
         result.setMessage("修改密码成功");
         return result;
     }
@@ -220,7 +239,7 @@ public class UserServiceImpl implements UserService {
         updateWrapper.eq("uid", uid);
         updateWrapper.set("name", name);
         updateWrapper.set("description", description);
-        userMapper.update(user, updateWrapper);
+        userMapper.update(updateWrapper);
         result.setMessage("更新成功！");
         return result;
     }
@@ -265,7 +284,7 @@ public class UserServiceImpl implements UserService {
         updateWrapper.set("experience", exp);
         updateWrapper.set("level", level);
         updateWrapper.set("threshold", threshold);
-        userMapper.update(user, updateWrapper);
+        userMapper.update(updateWrapper);
         result.setMessage("更新经验值和等级成功");
         return result;
     }

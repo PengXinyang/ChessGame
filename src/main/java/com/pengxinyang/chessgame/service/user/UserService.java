@@ -27,7 +27,7 @@ public interface UserService {
     /**
      * 用户登出
      */
-    ResponseResult logout();
+    ResponseResult logout(int uid);
 
     /**
      * 重置密码
