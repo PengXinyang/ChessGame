@@ -1,86 +1,357 @@
-2024-07-02T15:35:43.881+08:00  INFO 13884 --- [ChessGame] [restartedMain] c.p.chessgame.ChessGameApplication       : Starting ChessGameApplication using Java 22.0.1 with PID 13884 (D:\ziliao\程序设计实践\ChessGame\target\classes started by Dell in D:\ziliao\程序设计实践\ChessGame)
-2024-07-02T15:35:43.882+08:00  INFO 13884 --- [ChessGame] [restartedMain] c.p.chessgame.ChessGameApplication       : No active profile set, falling back to 1 default profile: "default"
-2024-07-02T15:35:43.912+08:00  INFO 13884 --- [ChessGame] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2024-07-02T15:35:43.912+08:00  INFO 13884 --- [ChessGame] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2024-07-02T15:35:44.329+08:00  INFO 13884 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-07-02T15:35:44.330+08:00  INFO 13884 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
-2024-07-02T15:35:44.340+08:00  INFO 13884 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 7 ms. Found 0 JDBC repository interfaces.
-2024-07-02T15:35:44.346+08:00  INFO 13884 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-07-02T15:35:44.347+08:00  INFO 13884 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-07-02T15:35:44.350+08:00  INFO 13884 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 0 ms. Found 0 JPA repository interfaces.
-2024-07-02T15:35:44.422+08:00  WARN 13884 --- [ChessGame] [restartedMain] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.pengxinyang.chessgame.mapper]' package. Please check your configuration.
-2024-07-02T15:35:44.530+08:00  WARN 13884 --- [ChessGame] [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [annotationActionEndpointMapping] is declared through a non-static factory method on that class; consider declaring it as static instead.
-2024-07-02T15:35:44.554+08:00  INFO 13884 --- [ChessGame] [restartedMain] .w.s.a.s.AnnotationActionEndpointMapping : Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
-2024-07-02T15:35:44.756+08:00  INFO 13884 --- [ChessGame] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2024-07-02T15:35:44.766+08:00  INFO 13884 --- [ChessGame] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-07-02T15:35:44.766+08:00  INFO 13884 --- [ChessGame] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
-2024-07-02T15:35:44.803+08:00  INFO 13884 --- [ChessGame] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/chess]  : Initializing Spring embedded WebApplicationContext
-2024-07-02T15:35:44.803+08:00  INFO 13884 --- [ChessGame] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 890 ms
-2024-07-02T15:35:44.900+08:00  INFO 13884 --- [ChessGame] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-07-02T15:35:44.930+08:00  INFO 13884 --- [ChessGame] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
-2024-07-02T15:35:44.947+08:00  INFO 13884 --- [ChessGame] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2024-07-02T15:35:45.145+08:00  INFO 13884 --- [ChessGame] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-07-02T15:35:45.161+08:00  INFO 13884 --- [ChessGame] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-07-02T15:35:45.258+08:00  INFO 13884 --- [ChessGame] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6eeea40e
-2024-07-02T15:35:45.259+08:00  INFO 13884 --- [ChessGame] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-07-02T15:35:45.289+08:00  WARN 13884 --- [ChessGame] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-07-02T15:35:45.289+08:00  WARN 13884 --- [ChessGame] [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2024-07-02T15:35:45.487+08:00  INFO 13884 --- [ChessGame] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-07-02T15:35:45.490+08:00  INFO 13884 --- [ChessGame] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-07-02T15:35:45.523+08:00  WARN 13884 --- [ChessGame] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-07-02T15:35:45.584+08:00 DEBUG 13884 --- [ChessGame] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 2 mappings in 'requestMappingHandlerMapping'
-2024-07-02T15:35:45.633+08:00 DEBUG 13884 --- [ChessGame] [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
-2024-07-02T15:35:45.654+08:00 DEBUG 13884 --- [ChessGame] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2024-07-02T15:35:45.673+08:00 DEBUG 13884 --- [ChessGame] [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
-2024-07-02T15:35:45.887+08:00  INFO 13884 --- [ChessGame] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
-2024-07-02T15:35:45.991+08:00  INFO 13884 --- [ChessGame] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2024-07-02T15:35:46.017+08:00  INFO 13884 --- [ChessGame] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/chess'
-2024-07-02T15:35:46.023+08:00  INFO 13884 --- [ChessGame] [restartedMain] c.p.chessgame.ChessGameApplication       : Started ChessGameApplication in 2.385 seconds (process running for 3.022)
-2024-07-02T15:35:54.105+08:00  INFO 13884 --- [ChessGame] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-07-02T15:35:54.107+08:00  INFO 13884 --- [ChessGame] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-07-02T15:35:54.112+08:00  INFO 13884 --- [ChessGame] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-07-02T21:05:58.553+08:00  INFO 22448 --- [ChessGame] [restartedMain] c.p.chessgame.ChessGameApplication       : Starting ChessGameApplication using Java 22.0.1 with PID 22448 (D:\ziliao\程序设计实践\ChessGame\target\classes started by Dell in D:\ziliao\程序设计实践\ChessGame)
-2024-07-02T21:05:58.554+08:00  INFO 22448 --- [ChessGame] [restartedMain] c.p.chessgame.ChessGameApplication       : No active profile set, falling back to 1 default profile: "default"
-2024-07-02T21:05:58.588+08:00  INFO 22448 --- [ChessGame] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2024-07-02T21:05:58.589+08:00  INFO 22448 --- [ChessGame] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2024-07-02T21:05:59.081+08:00  INFO 22448 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-07-02T21:05:59.082+08:00  INFO 22448 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
-2024-07-02T21:05:59.096+08:00  INFO 22448 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 JDBC repository interfaces.
-2024-07-02T21:05:59.104+08:00  INFO 22448 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2024-07-02T21:05:59.105+08:00  INFO 22448 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-07-02T21:05:59.110+08:00  INFO 22448 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
-2024-07-02T21:05:59.327+08:00  WARN 22448 --- [ChessGame] [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [annotationActionEndpointMapping] is declared through a non-static factory method on that class; consider declaring it as static instead.
-2024-07-02T21:05:59.354+08:00  INFO 22448 --- [ChessGame] [restartedMain] .w.s.a.s.AnnotationActionEndpointMapping : Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
-2024-07-02T21:05:59.575+08:00  INFO 22448 --- [ChessGame] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2024-07-02T21:05:59.588+08:00  INFO 22448 --- [ChessGame] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2024-07-02T21:05:59.588+08:00  INFO 22448 --- [ChessGame] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
-2024-07-02T21:05:59.624+08:00  INFO 22448 --- [ChessGame] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/chess]  : Initializing Spring embedded WebApplicationContext
-2024-07-02T21:05:59.625+08:00  INFO 22448 --- [ChessGame] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1036 ms
-2024-07-02T21:05:59.742+08:00  INFO 22448 --- [ChessGame] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-07-02T21:05:59.796+08:00  INFO 22448 --- [ChessGame] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
-2024-07-02T21:05:59.825+08:00  INFO 22448 --- [ChessGame] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2024-07-02T21:06:00.039+08:00  INFO 22448 --- [ChessGame] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-07-02T21:06:00.059+08:00  INFO 22448 --- [ChessGame] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-07-02T21:06:00.168+08:00  INFO 22448 --- [ChessGame] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2cfa3679
-2024-07-02T21:06:00.169+08:00  INFO 22448 --- [ChessGame] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-07-02T21:06:00.202+08:00  WARN 22448 --- [ChessGame] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-07-02T21:06:00.203+08:00  WARN 22448 --- [ChessGame] [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2024-07-02T21:06:00.440+08:00  INFO 22448 --- [ChessGame] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-07-02T21:06:00.443+08:00  INFO 22448 --- [ChessGame] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-07-02T21:06:00.540+08:00  WARN 22448 --- [ChessGame] [restartedMain] c.b.m.core.metadata.TableInfoHelper      : This primary key of "uid" is primitive !不建议如此请使用包装类 in Class: "com.pengxinyang.chessgame.entity.User"
-2024-07-02T21:06:00.623+08:00  WARN 22448 --- [ChessGame] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-07-02T21:06:00.691+08:00 DEBUG 22448 --- [ChessGame] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 2 mappings in 'requestMappingHandlerMapping'
-2024-07-02T21:06:00.750+08:00 DEBUG 22448 --- [ChessGame] [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
-2024-07-02T21:06:00.774+08:00 DEBUG 22448 --- [ChessGame] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2024-07-02T21:06:00.797+08:00 DEBUG 22448 --- [ChessGame] [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
-2024-07-02T21:06:00.983+08:00  INFO 22448 --- [ChessGame] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
-2024-07-02T21:06:01.091+08:00  INFO 22448 --- [ChessGame] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2024-07-02T21:06:01.094+08:00  WARN 22448 --- [ChessGame] [restartedMain] c.b.m.core.metadata.TableInfoHelper      : Can not find table primary key in Class: "com.pengxinyang.chessgame.entity.Chess".
-2024-07-02T21:06:01.094+08:00  WARN 22448 --- [ChessGame] [restartedMain] c.b.m.core.injector.DefaultSqlInjector   : class com.pengxinyang.chessgame.entity.Chess ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
-2024-07-02T21:06:01.102+08:00  WARN 22448 --- [ChessGame] [restartedMain] c.b.m.core.metadata.TableInfoHelper      : Can not find table primary key in Class: "com.pengxinyang.chessgame.entity.ChessStats".
-2024-07-02T21:06:01.102+08:00  WARN 22448 --- [ChessGame] [restartedMain] c.b.m.core.injector.DefaultSqlInjector   : class com.pengxinyang.chessgame.entity.ChessStats ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
-2024-07-02T21:06:01.130+08:00  INFO 22448 --- [ChessGame] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/chess'
-2024-07-02T21:06:01.136+08:00  INFO 22448 --- [ChessGame] [restartedMain] c.p.chessgame.ChessGameApplication       : Started ChessGameApplication in 2.863 seconds (process running for 3.41)
-2024-07-02T21:06:12.339+08:00  INFO 22448 --- [ChessGame] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-07-02T21:06:12.342+08:00  INFO 22448 --- [ChessGame] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-07-02T21:06:12.347+08:00  INFO 22448 --- [ChessGame] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-07-04T17:12:39.373+08:00  INFO 10912 --- [ChessGame] [restartedMain] c.p.chessgame.ChessGameApplication       : Starting ChessGameApplication using Java 22.0.1 with PID 10912 (D:\ziliao\程序设计实践\ChessGame\target\classes started by Dell in D:\ziliao\程序设计实践\ChessGame)
+2024-07-04T17:12:39.384+08:00  INFO 10912 --- [ChessGame] [restartedMain] c.p.chessgame.ChessGameApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-07-04T17:12:39.430+08:00  INFO 10912 --- [ChessGame] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-07-04T17:12:39.430+08:00  INFO 10912 --- [ChessGame] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-07-04T17:12:39.978+08:00  INFO 10912 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-04T17:12:39.979+08:00  INFO 10912 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2024-07-04T17:12:39.994+08:00  INFO 10912 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 JDBC repository interfaces.
+2024-07-04T17:12:40.000+08:00  INFO 10912 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-04T17:12:40.001+08:00  INFO 10912 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-04T17:12:40.006+08:00  INFO 10912 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 JPA repository interfaces.
+2024-07-04T17:12:40.256+08:00  WARN 10912 --- [ChessGame] [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [annotationActionEndpointMapping] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2024-07-04T17:12:40.283+08:00  INFO 10912 --- [ChessGame] [restartedMain] .w.s.a.s.AnnotationActionEndpointMapping : Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2024-07-04T17:12:40.530+08:00  INFO 10912 --- [ChessGame] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2024-07-04T17:12:40.539+08:00  INFO 10912 --- [ChessGame] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-04T17:12:40.540+08:00  INFO 10912 --- [ChessGame] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-07-04T17:12:40.582+08:00  INFO 10912 --- [ChessGame] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/chess]  : Initializing Spring embedded WebApplicationContext
+2024-07-04T17:12:40.582+08:00  INFO 10912 --- [ChessGame] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1151 ms
+2024-07-04T17:12:40.735+08:00  INFO 10912 --- [ChessGame] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-04T17:12:40.795+08:00  INFO 10912 --- [ChessGame] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-07-04T17:12:40.825+08:00  INFO 10912 --- [ChessGame] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-04T17:12:41.065+08:00  INFO 10912 --- [ChessGame] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-04T17:12:41.087+08:00  INFO 10912 --- [ChessGame] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-07-04T17:12:41.205+08:00  INFO 10912 --- [ChessGame] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@183a2254
+2024-07-04T17:12:41.206+08:00  INFO 10912 --- [ChessGame] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-07-04T17:12:41.247+08:00  WARN 10912 --- [ChessGame] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-07-04T17:12:41.247+08:00  WARN 10912 --- [ChessGame] [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2024-07-04T17:12:41.510+08:00  INFO 10912 --- [ChessGame] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-04T17:12:41.513+08:00  INFO 10912 --- [ChessGame] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-04T17:12:41.609+08:00  WARN 10912 --- [ChessGame] [restartedMain] c.b.m.core.metadata.TableInfoHelper      : This primary key of "uid" is primitive !不建议如此请使用包装类 in Class: "com.pengxinyang.chessgame.entity.User"
+2024-07-04T17:12:41.667+08:00  INFO 10912 --- [ChessGame] [restartedMain] f.a.AutowiredAnnotationBeanPostProcessor : Autowired annotation is not supported on static fields: private static final com.fasterxml.jackson.databind.ObjectMapper com.pengxinyang.chessgame.utils.JsonUtil.objectMapper
+2024-07-04T17:12:41.702+08:00  WARN 10912 --- [ChessGame] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-07-04T17:12:41.777+08:00 DEBUG 10912 --- [ChessGame] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 9 mappings in 'requestMappingHandlerMapping'
+2024-07-04T17:12:41.839+08:00 DEBUG 10912 --- [ChessGame] [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2024-07-04T17:12:41.859+08:00 DEBUG 10912 --- [ChessGame] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2024-07-04T17:12:41.884+08:00 DEBUG 10912 --- [ChessGame] [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2024-07-04T17:12:42.085+08:00  INFO 10912 --- [ChessGame] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-07-04T17:12:42.212+08:00  INFO 10912 --- [ChessGame] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-07-04T17:12:42.215+08:00  WARN 10912 --- [ChessGame] [restartedMain] c.b.m.core.metadata.TableInfoHelper      : Can not find table primary key in Class: "com.pengxinyang.chessgame.entity.Chess".
+2024-07-04T17:12:42.215+08:00  WARN 10912 --- [ChessGame] [restartedMain] c.b.m.core.injector.DefaultSqlInjector   : class com.pengxinyang.chessgame.entity.Chess ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2024-07-04T17:12:42.223+08:00  WARN 10912 --- [ChessGame] [restartedMain] c.b.m.core.metadata.TableInfoHelper      : Can not find table primary key in Class: "com.pengxinyang.chessgame.entity.ChessStats".
+2024-07-04T17:12:42.223+08:00  WARN 10912 --- [ChessGame] [restartedMain] c.b.m.core.injector.DefaultSqlInjector   : class com.pengxinyang.chessgame.entity.ChessStats ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2024-07-04T17:12:42.259+08:00  INFO 10912 --- [ChessGame] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/chess'
+2024-07-04T17:12:42.265+08:00  INFO 10912 --- [ChessGame] [restartedMain] c.p.chessgame.ChessGameApplication       : Started ChessGameApplication in 3.206 seconds (process running for 3.776)
+2024-07-04T17:12:48.089+08:00  INFO 10912 --- [ChessGame] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 15 class path changes (0 additions, 14 deletions, 1 modification)
+2024-07-04T17:12:48.098+08:00  INFO 10912 --- [ChessGame] [Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-04T17:12:48.100+08:00  INFO 10912 --- [ChessGame] [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-07-04T17:12:48.106+08:00  INFO 10912 --- [ChessGame] [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-07-04T17:12:48.204+08:00  INFO 10912 --- [ChessGame] [restartedMain] c.p.chessgame.ChessGameApplication       : Starting ChessGameApplication using Java 22.0.1 with PID 10912 (D:\ziliao\程序设计实践\ChessGame\target\classes started by Dell in D:\ziliao\程序设计实践\ChessGame)
+2024-07-04T17:12:48.204+08:00  INFO 10912 --- [ChessGame] [restartedMain] c.p.chessgame.ChessGameApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-07-04T17:12:48.354+08:00  INFO 10912 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-04T17:12:48.354+08:00  INFO 10912 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2024-07-04T17:12:48.355+08:00  INFO 10912 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 0 ms. Found 0 JDBC repository interfaces.
+2024-07-04T17:12:48.357+08:00  INFO 10912 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-04T17:12:48.357+08:00  INFO 10912 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-04T17:12:48.358+08:00  INFO 10912 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 0 ms. Found 0 JPA repository interfaces.
+2024-07-04T17:12:48.396+08:00  WARN 10912 --- [ChessGame] [restartedMain] o.m.s.mapper.ClassPathMapperScanner      : No MyBatis mapper was found in '[com.pengxinyang.chessgame.mapper]' package. Please check your configuration.
+2024-07-04T17:12:48.416+08:00  WARN 10912 --- [ChessGame] [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [annotationActionEndpointMapping] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2024-07-04T17:12:48.418+08:00  INFO 10912 --- [ChessGame] [restartedMain] .w.s.a.s.AnnotationActionEndpointMapping : Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2024-07-04T17:12:48.475+08:00  INFO 10912 --- [ChessGame] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2024-07-04T17:12:48.476+08:00  INFO 10912 --- [ChessGame] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-04T17:12:48.477+08:00  INFO 10912 --- [ChessGame] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-07-04T17:12:48.506+08:00  INFO 10912 --- [ChessGame] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/chess]  : Initializing Spring embedded WebApplicationContext
+2024-07-04T17:12:48.506+08:00  INFO 10912 --- [ChessGame] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 301 ms
+2024-07-04T17:12:48.542+08:00  INFO 10912 --- [ChessGame] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-04T17:12:48.544+08:00  INFO 10912 --- [ChessGame] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-04T17:12:48.552+08:00  INFO 10912 --- [ChessGame] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-04T17:12:48.552+08:00  INFO 10912 --- [ChessGame] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2024-07-04T17:12:48.557+08:00  INFO 10912 --- [ChessGame] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@8e586eb
+2024-07-04T17:12:48.557+08:00  INFO 10912 --- [ChessGame] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2024-07-04T17:12:48.558+08:00  WARN 10912 --- [ChessGame] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-07-04T17:12:48.558+08:00  WARN 10912 --- [ChessGame] [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2024-07-04T17:12:48.571+08:00  INFO 10912 --- [ChessGame] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-04T17:12:48.571+08:00  INFO 10912 --- [ChessGame] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-04T17:12:48.587+08:00  WARN 10912 --- [ChessGame] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-07-04T17:12:48.609+08:00 DEBUG 10912 --- [ChessGame] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 2 mappings in 'requestMappingHandlerMapping'
+2024-07-04T17:12:48.638+08:00 DEBUG 10912 --- [ChessGame] [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2024-07-04T17:12:48.649+08:00 DEBUG 10912 --- [ChessGame] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2024-07-04T17:12:48.653+08:00 DEBUG 10912 --- [ChessGame] [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2024-07-04T17:12:48.725+08:00  INFO 10912 --- [ChessGame] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-07-04T17:12:48.759+08:00  INFO 10912 --- [ChessGame] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-07-04T17:12:48.773+08:00  INFO 10912 --- [ChessGame] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/chess'
+2024-07-04T17:12:48.776+08:00  INFO 10912 --- [ChessGame] [restartedMain] c.p.chessgame.ChessGameApplication       : Started ChessGameApplication in 0.594 seconds (process running for 10.288)
+2024-07-04T17:12:48.781+08:00  INFO 10912 --- [ChessGame] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+   TaskExecutorConfigurations.TaskExecutorConfiguration matched:
+      - @ConditionalOnMissingBean (types: java.util.concurrent.Executor; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   TaskExecutorConfigurations.TaskExecutorConfiguration#applicationTaskExecutor matched:
+      - @ConditionalOnThreading found PLATFORM (OnThreadingCondition)
+
+
+Negative matches:
+-----------------
+
+   TaskExecutorConfigurations.TaskExecutorConfiguration#applicationTaskExecutorVirtualThreads:
+      Did not match:
+         - @ConditionalOnThreading did not find VIRTUAL (OnThreadingCondition)
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+2024-07-04T17:12:50.179+08:00  INFO 10912 --- [ChessGame] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 14 class path changes (14 additions, 0 deletions, 0 modifications)
+2024-07-04T17:12:50.186+08:00  INFO 10912 --- [ChessGame] [Thread-7] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-04T17:12:50.187+08:00  INFO 10912 --- [ChessGame] [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2024-07-04T17:12:50.189+08:00  INFO 10912 --- [ChessGame] [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2024-07-04T17:12:50.244+08:00  INFO 10912 --- [ChessGame] [restartedMain] c.p.chessgame.ChessGameApplication       : Starting ChessGameApplication using Java 22.0.1 with PID 10912 (D:\ziliao\程序设计实践\ChessGame\target\classes started by Dell in D:\ziliao\程序设计实践\ChessGame)
+2024-07-04T17:12:50.245+08:00  INFO 10912 --- [ChessGame] [restartedMain] c.p.chessgame.ChessGameApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-07-04T17:12:50.400+08:00  INFO 10912 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-04T17:12:50.400+08:00  INFO 10912 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2024-07-04T17:12:50.404+08:00  INFO 10912 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 3 ms. Found 0 JDBC repository interfaces.
+2024-07-04T17:12:50.406+08:00  INFO 10912 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-04T17:12:50.406+08:00  INFO 10912 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-04T17:12:50.408+08:00  INFO 10912 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 JPA repository interfaces.
+2024-07-04T17:12:50.459+08:00  WARN 10912 --- [ChessGame] [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [annotationActionEndpointMapping] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2024-07-04T17:12:50.460+08:00  INFO 10912 --- [ChessGame] [restartedMain] .w.s.a.s.AnnotationActionEndpointMapping : Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2024-07-04T17:12:50.491+08:00  INFO 10912 --- [ChessGame] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2024-07-04T17:12:50.492+08:00  INFO 10912 --- [ChessGame] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-04T17:12:50.492+08:00  INFO 10912 --- [ChessGame] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-07-04T17:12:50.508+08:00  INFO 10912 --- [ChessGame] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/chess]  : Initializing Spring embedded WebApplicationContext
+2024-07-04T17:12:50.508+08:00  INFO 10912 --- [ChessGame] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 261 ms
+2024-07-04T17:12:50.537+08:00  INFO 10912 --- [ChessGame] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-04T17:12:50.539+08:00  INFO 10912 --- [ChessGame] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-04T17:12:50.544+08:00  INFO 10912 --- [ChessGame] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-04T17:12:50.544+08:00  INFO 10912 --- [ChessGame] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2024-07-04T17:12:50.547+08:00  INFO 10912 --- [ChessGame] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection com.mysql.cj.jdbc.ConnectionImpl@28fa279c
+2024-07-04T17:12:50.547+08:00  INFO 10912 --- [ChessGame] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2024-07-04T17:12:50.548+08:00  WARN 10912 --- [ChessGame] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-07-04T17:12:50.548+08:00  WARN 10912 --- [ChessGame] [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2024-07-04T17:12:50.559+08:00  INFO 10912 --- [ChessGame] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-04T17:12:50.559+08:00  INFO 10912 --- [ChessGame] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-04T17:12:50.577+08:00  WARN 10912 --- [ChessGame] [restartedMain] c.b.m.core.metadata.TableInfoHelper      : This primary key of "uid" is primitive !不建议如此请使用包装类 in Class: "com.pengxinyang.chessgame.entity.User"
+2024-07-04T17:12:50.590+08:00  INFO 10912 --- [ChessGame] [restartedMain] f.a.AutowiredAnnotationBeanPostProcessor : Autowired annotation is not supported on static fields: private static final com.fasterxml.jackson.databind.ObjectMapper com.pengxinyang.chessgame.utils.JsonUtil.objectMapper
+2024-07-04T17:12:50.602+08:00  WARN 10912 --- [ChessGame] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-07-04T17:12:50.618+08:00 DEBUG 10912 --- [ChessGame] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 9 mappings in 'requestMappingHandlerMapping'
+2024-07-04T17:12:50.652+08:00 DEBUG 10912 --- [ChessGame] [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2024-07-04T17:12:50.658+08:00 DEBUG 10912 --- [ChessGame] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2024-07-04T17:12:50.661+08:00 DEBUG 10912 --- [ChessGame] [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2024-07-04T17:12:50.718+08:00  INFO 10912 --- [ChessGame] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-07-04T17:12:50.754+08:00  INFO 10912 --- [ChessGame] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-07-04T17:12:50.756+08:00  WARN 10912 --- [ChessGame] [restartedMain] c.b.m.core.metadata.TableInfoHelper      : Can not find table primary key in Class: "com.pengxinyang.chessgame.entity.Chess".
+2024-07-04T17:12:50.756+08:00  WARN 10912 --- [ChessGame] [restartedMain] c.b.m.core.injector.DefaultSqlInjector   : class com.pengxinyang.chessgame.entity.Chess ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2024-07-04T17:12:50.762+08:00  WARN 10912 --- [ChessGame] [restartedMain] c.b.m.core.metadata.TableInfoHelper      : Can not find table primary key in Class: "com.pengxinyang.chessgame.entity.ChessStats".
+2024-07-04T17:12:50.762+08:00  WARN 10912 --- [ChessGame] [restartedMain] c.b.m.core.injector.DefaultSqlInjector   : class com.pengxinyang.chessgame.entity.ChessStats ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2024-07-04T17:12:50.775+08:00  INFO 10912 --- [ChessGame] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/chess'
+2024-07-04T17:12:50.777+08:00  INFO 10912 --- [ChessGame] [restartedMain] c.p.chessgame.ChessGameApplication       : Started ChessGameApplication in 0.55 seconds (process running for 12.289)
+2024-07-04T17:12:50.778+08:00  INFO 10912 --- [ChessGame] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+    None
+
+
+Negative matches:
+-----------------
+
+   TaskExecutorConfigurations.TaskExecutorConfiguration:
+      Did not match:
+         - @ConditionalOnMissingBean (types: java.util.concurrent.Executor; SearchStrategy: all) found beans of type 'java.util.concurrent.Executor' taskExecutor (OnBeanCondition)
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+2024-07-04T17:13:32.536+08:00  INFO 10912 --- [ChessGame] [http-nio-8081-exec-7] o.a.c.c.C.[Tomcat].[localhost].[/chess]  : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-07-04T17:13:32.537+08:00  INFO 10912 --- [ChessGame] [http-nio-8081-exec-7] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-07-04T17:13:32.537+08:00 DEBUG 10912 --- [ChessGame] [http-nio-8081-exec-7] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2024-07-04T17:13:32.537+08:00 DEBUG 10912 --- [ChessGame] [http-nio-8081-exec-7] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2024-07-04T17:13:32.537+08:00 DEBUG 10912 --- [ChessGame] [http-nio-8081-exec-7] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2024-07-04T17:13:32.538+08:00 DEBUG 10912 --- [ChessGame] [http-nio-8081-exec-7] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@4c2d78d4
+2024-07-04T17:13:32.538+08:00 DEBUG 10912 --- [ChessGame] [http-nio-8081-exec-7] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@3d935117
+2024-07-04T17:13:32.538+08:00 DEBUG 10912 --- [ChessGame] [http-nio-8081-exec-7] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2024-07-04T17:13:32.538+08:00  INFO 10912 --- [ChessGame] [http-nio-8081-exec-7] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-07-04T17:17:15.612+08:00  INFO 10912 --- [ChessGame] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-04T17:17:15.612+08:00  INFO 10912 --- [ChessGame] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2024-07-04T17:17:15.614+08:00  INFO 10912 --- [ChessGame] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+2024-07-04T17:17:17.283+08:00  INFO 7080 --- [ChessGame] [restartedMain] c.p.chessgame.ChessGameApplication       : Starting ChessGameApplication using Java 22.0.1 with PID 7080 (D:\ziliao\程序设计实践\ChessGame\target\classes started by Dell in D:\ziliao\程序设计实践\ChessGame)
+2024-07-04T17:17:17.284+08:00  INFO 7080 --- [ChessGame] [restartedMain] c.p.chessgame.ChessGameApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-07-04T17:17:17.315+08:00  INFO 7080 --- [ChessGame] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-07-04T17:17:17.315+08:00  INFO 7080 --- [ChessGame] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-07-04T17:17:17.726+08:00  INFO 7080 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-04T17:17:17.727+08:00  INFO 7080 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2024-07-04T17:17:17.739+08:00  INFO 7080 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 JDBC repository interfaces.
+2024-07-04T17:17:17.745+08:00  INFO 7080 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-04T17:17:17.746+08:00  INFO 7080 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-04T17:17:17.749+08:00  INFO 7080 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 JPA repository interfaces.
+2024-07-04T17:17:17.935+08:00  WARN 7080 --- [ChessGame] [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [annotationActionEndpointMapping] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2024-07-04T17:17:17.950+08:00  INFO 7080 --- [ChessGame] [restartedMain] .w.s.a.s.AnnotationActionEndpointMapping : Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2024-07-04T17:17:18.146+08:00  INFO 7080 --- [ChessGame] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2024-07-04T17:17:18.155+08:00  INFO 7080 --- [ChessGame] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-04T17:17:18.155+08:00  INFO 7080 --- [ChessGame] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-07-04T17:17:18.191+08:00  INFO 7080 --- [ChessGame] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-07-04T17:17:18.192+08:00  INFO 7080 --- [ChessGame] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 876 ms
+2024-07-04T17:17:18.304+08:00  INFO 7080 --- [ChessGame] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-04T17:17:18.334+08:00  INFO 7080 --- [ChessGame] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-07-04T17:17:18.353+08:00  INFO 7080 --- [ChessGame] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-04T17:17:18.540+08:00  INFO 7080 --- [ChessGame] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-04T17:17:18.555+08:00  INFO 7080 --- [ChessGame] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-07-04T17:17:18.652+08:00  INFO 7080 --- [ChessGame] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6d4e2bd3
+2024-07-04T17:17:18.653+08:00  INFO 7080 --- [ChessGame] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-07-04T17:17:18.679+08:00  WARN 7080 --- [ChessGame] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-07-04T17:17:18.679+08:00  WARN 7080 --- [ChessGame] [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2024-07-04T17:17:18.870+08:00  INFO 7080 --- [ChessGame] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-04T17:17:18.874+08:00  INFO 7080 --- [ChessGame] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-04T17:17:18.951+08:00  WARN 7080 --- [ChessGame] [restartedMain] c.b.m.core.metadata.TableInfoHelper      : This primary key of "uid" is primitive !不建议如此请使用包装类 in Class: "com.pengxinyang.chessgame.entity.User"
+2024-07-04T17:17:18.999+08:00  INFO 7080 --- [ChessGame] [restartedMain] f.a.AutowiredAnnotationBeanPostProcessor : Autowired annotation is not supported on static fields: private static final com.fasterxml.jackson.databind.ObjectMapper com.pengxinyang.chessgame.utils.JsonUtil.objectMapper
+2024-07-04T17:17:19.031+08:00  WARN 7080 --- [ChessGame] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-07-04T17:17:19.086+08:00 DEBUG 7080 --- [ChessGame] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 9 mappings in 'requestMappingHandlerMapping'
+2024-07-04T17:17:19.147+08:00 DEBUG 7080 --- [ChessGame] [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2024-07-04T17:17:19.170+08:00 DEBUG 7080 --- [ChessGame] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2024-07-04T17:17:19.189+08:00 DEBUG 7080 --- [ChessGame] [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2024-07-04T17:17:19.345+08:00  INFO 7080 --- [ChessGame] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-07-04T17:17:19.445+08:00  INFO 7080 --- [ChessGame] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-07-04T17:17:19.449+08:00  WARN 7080 --- [ChessGame] [restartedMain] c.b.m.core.metadata.TableInfoHelper      : Can not find table primary key in Class: "com.pengxinyang.chessgame.entity.Chess".
+2024-07-04T17:17:19.450+08:00  WARN 7080 --- [ChessGame] [restartedMain] c.b.m.core.injector.DefaultSqlInjector   : class com.pengxinyang.chessgame.entity.Chess ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2024-07-04T17:17:19.461+08:00  WARN 7080 --- [ChessGame] [restartedMain] c.b.m.core.metadata.TableInfoHelper      : Can not find table primary key in Class: "com.pengxinyang.chessgame.entity.ChessStats".
+2024-07-04T17:17:19.461+08:00  WARN 7080 --- [ChessGame] [restartedMain] c.b.m.core.injector.DefaultSqlInjector   : class com.pengxinyang.chessgame.entity.ChessStats ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2024-07-04T17:17:19.490+08:00  INFO 7080 --- [ChessGame] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2024-07-04T17:17:19.495+08:00  INFO 7080 --- [ChessGame] [restartedMain] c.p.chessgame.ChessGameApplication       : Started ChessGameApplication in 2.465 seconds (process running for 2.92)
+2024-07-04T17:17:22.122+08:00  INFO 7080 --- [ChessGame] [http-nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-07-04T17:17:22.122+08:00  INFO 7080 --- [ChessGame] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-07-04T17:17:22.122+08:00 DEBUG 7080 --- [ChessGame] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2024-07-04T17:17:22.122+08:00 DEBUG 7080 --- [ChessGame] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2024-07-04T17:17:22.122+08:00 DEBUG 7080 --- [ChessGame] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2024-07-04T17:17:22.123+08:00 DEBUG 7080 --- [ChessGame] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@319da99d
+2024-07-04T17:17:22.123+08:00 DEBUG 7080 --- [ChessGame] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@305ef64f
+2024-07-04T17:17:22.123+08:00 DEBUG 7080 --- [ChessGame] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2024-07-04T17:17:22.123+08:00  INFO 7080 --- [ChessGame] [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-07-04T17:17:34.295+08:00  INFO 7080 --- [ChessGame] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-04T17:17:34.295+08:00  INFO 7080 --- [ChessGame] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-07-04T17:17:34.300+08:00  INFO 7080 --- [ChessGame] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-07-04T17:17:36.065+08:00  INFO 4504 --- [ChessGame] [restartedMain] c.p.chessgame.ChessGameApplication       : Starting ChessGameApplication using Java 22.0.1 with PID 4504 (D:\ziliao\程序设计实践\ChessGame\target\classes started by Dell in D:\ziliao\程序设计实践\ChessGame)
+2024-07-04T17:17:36.066+08:00  INFO 4504 --- [ChessGame] [restartedMain] c.p.chessgame.ChessGameApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-07-04T17:17:36.095+08:00  INFO 4504 --- [ChessGame] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-07-04T17:17:36.096+08:00  INFO 4504 --- [ChessGame] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-07-04T17:17:36.490+08:00  INFO 4504 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-04T17:17:36.491+08:00  INFO 4504 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2024-07-04T17:17:36.504+08:00  INFO 4504 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 JDBC repository interfaces.
+2024-07-04T17:17:36.509+08:00  INFO 4504 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-04T17:17:36.510+08:00  INFO 4504 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-04T17:17:36.513+08:00  INFO 4504 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 JPA repository interfaces.
+2024-07-04T17:17:36.694+08:00  WARN 4504 --- [ChessGame] [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [annotationActionEndpointMapping] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2024-07-04T17:17:36.708+08:00  INFO 4504 --- [ChessGame] [restartedMain] .w.s.a.s.AnnotationActionEndpointMapping : Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2024-07-04T17:17:36.908+08:00  INFO 4504 --- [ChessGame] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2024-07-04T17:17:36.917+08:00  INFO 4504 --- [ChessGame] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-04T17:17:36.917+08:00  INFO 4504 --- [ChessGame] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-07-04T17:17:36.952+08:00  INFO 4504 --- [ChessGame] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/chess]  : Initializing Spring embedded WebApplicationContext
+2024-07-04T17:17:36.952+08:00  INFO 4504 --- [ChessGame] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 856 ms
+2024-07-04T17:17:37.062+08:00  INFO 4504 --- [ChessGame] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-04T17:17:37.092+08:00  INFO 4504 --- [ChessGame] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-07-04T17:17:37.108+08:00  INFO 4504 --- [ChessGame] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-04T17:17:37.286+08:00  INFO 4504 --- [ChessGame] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-04T17:17:37.301+08:00  INFO 4504 --- [ChessGame] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-07-04T17:17:37.390+08:00  INFO 4504 --- [ChessGame] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6d4e2bd3
+2024-07-04T17:17:37.392+08:00  INFO 4504 --- [ChessGame] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-07-04T17:17:37.418+08:00  WARN 4504 --- [ChessGame] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-07-04T17:17:37.419+08:00  WARN 4504 --- [ChessGame] [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2024-07-04T17:17:37.613+08:00  INFO 4504 --- [ChessGame] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-04T17:17:37.616+08:00  INFO 4504 --- [ChessGame] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-04T17:17:37.707+08:00  WARN 4504 --- [ChessGame] [restartedMain] c.b.m.core.metadata.TableInfoHelper      : This primary key of "uid" is primitive !不建议如此请使用包装类 in Class: "com.pengxinyang.chessgame.entity.User"
+2024-07-04T17:17:37.754+08:00  INFO 4504 --- [ChessGame] [restartedMain] f.a.AutowiredAnnotationBeanPostProcessor : Autowired annotation is not supported on static fields: private static final com.fasterxml.jackson.databind.ObjectMapper com.pengxinyang.chessgame.utils.JsonUtil.objectMapper
+2024-07-04T17:17:37.786+08:00  WARN 4504 --- [ChessGame] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-07-04T17:17:37.851+08:00 DEBUG 4504 --- [ChessGame] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 9 mappings in 'requestMappingHandlerMapping'
+2024-07-04T17:17:37.913+08:00 DEBUG 4504 --- [ChessGame] [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2024-07-04T17:17:37.931+08:00 DEBUG 4504 --- [ChessGame] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2024-07-04T17:17:37.952+08:00 DEBUG 4504 --- [ChessGame] [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2024-07-04T17:17:38.114+08:00  INFO 4504 --- [ChessGame] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-07-04T17:17:38.214+08:00  INFO 4504 --- [ChessGame] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-07-04T17:17:38.217+08:00  WARN 4504 --- [ChessGame] [restartedMain] c.b.m.core.metadata.TableInfoHelper      : Can not find table primary key in Class: "com.pengxinyang.chessgame.entity.Chess".
+2024-07-04T17:17:38.217+08:00  WARN 4504 --- [ChessGame] [restartedMain] c.b.m.core.injector.DefaultSqlInjector   : class com.pengxinyang.chessgame.entity.Chess ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2024-07-04T17:17:38.226+08:00  WARN 4504 --- [ChessGame] [restartedMain] c.b.m.core.metadata.TableInfoHelper      : Can not find table primary key in Class: "com.pengxinyang.chessgame.entity.ChessStats".
+2024-07-04T17:17:38.226+08:00  WARN 4504 --- [ChessGame] [restartedMain] c.b.m.core.injector.DefaultSqlInjector   : class com.pengxinyang.chessgame.entity.ChessStats ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2024-07-04T17:17:38.253+08:00  INFO 4504 --- [ChessGame] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/chess'
+2024-07-04T17:17:38.259+08:00  INFO 4504 --- [ChessGame] [restartedMain] c.p.chessgame.ChessGameApplication       : Started ChessGameApplication in 2.433 seconds (process running for 2.869)
+2024-07-04T17:18:14.936+08:00  INFO 4504 --- [ChessGame] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-04T17:18:14.939+08:00  INFO 4504 --- [ChessGame] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-07-04T17:18:14.944+08:00  INFO 4504 --- [ChessGame] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-07-04T17:18:17.777+08:00  INFO 6992 --- [ChessGame] [restartedMain] c.p.chessgame.ChessGameApplication       : Starting ChessGameApplication using Java 22.0.1 with PID 6992 (D:\ziliao\程序设计实践\ChessGame\target\classes started by Dell in D:\ziliao\程序设计实践\ChessGame)
+2024-07-04T17:18:17.779+08:00  INFO 6992 --- [ChessGame] [restartedMain] c.p.chessgame.ChessGameApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-07-04T17:18:17.808+08:00  INFO 6992 --- [ChessGame] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-07-04T17:18:17.808+08:00  INFO 6992 --- [ChessGame] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-07-04T17:18:18.207+08:00  INFO 6992 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-04T17:18:18.208+08:00  INFO 6992 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2024-07-04T17:18:18.221+08:00  INFO 6992 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 9 ms. Found 0 JDBC repository interfaces.
+2024-07-04T17:18:18.227+08:00  INFO 6992 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-07-04T17:18:18.228+08:00  INFO 6992 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-04T17:18:18.231+08:00  INFO 6992 --- [ChessGame] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 JPA repository interfaces.
+2024-07-04T17:18:18.410+08:00  WARN 6992 --- [ChessGame] [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [annotationActionEndpointMapping] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2024-07-04T17:18:18.425+08:00  INFO 6992 --- [ChessGame] [restartedMain] .w.s.a.s.AnnotationActionEndpointMapping : Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2024-07-04T17:18:18.620+08:00  INFO 6992 --- [ChessGame] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2024-07-04T17:18:18.629+08:00  INFO 6992 --- [ChessGame] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-04T17:18:18.630+08:00  INFO 6992 --- [ChessGame] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-07-04T17:18:18.665+08:00  INFO 6992 --- [ChessGame] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/chess]  : Initializing Spring embedded WebApplicationContext
+2024-07-04T17:18:18.666+08:00  INFO 6992 --- [ChessGame] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 858 ms
+2024-07-04T17:18:18.774+08:00  INFO 6992 --- [ChessGame] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-04T17:18:18.803+08:00  INFO 6992 --- [ChessGame] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-07-04T17:18:18.818+08:00  INFO 6992 --- [ChessGame] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-04T17:18:18.991+08:00  INFO 6992 --- [ChessGame] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-04T17:18:19.006+08:00  INFO 6992 --- [ChessGame] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-07-04T17:18:19.094+08:00  INFO 6992 --- [ChessGame] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6d4e2bd3
+2024-07-04T17:18:19.095+08:00  INFO 6992 --- [ChessGame] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-07-04T17:18:19.121+08:00  WARN 6992 --- [ChessGame] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-07-04T17:18:19.121+08:00  WARN 6992 --- [ChessGame] [restartedMain] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2024-07-04T17:18:19.317+08:00  INFO 6992 --- [ChessGame] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-04T17:18:19.319+08:00  INFO 6992 --- [ChessGame] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-04T17:18:19.403+08:00  WARN 6992 --- [ChessGame] [restartedMain] c.b.m.core.metadata.TableInfoHelper      : This primary key of "uid" is primitive !不建议如此请使用包装类 in Class: "com.pengxinyang.chessgame.entity.User"
+2024-07-04T17:18:19.457+08:00  INFO 6992 --- [ChessGame] [restartedMain] f.a.AutowiredAnnotationBeanPostProcessor : Autowired annotation is not supported on static fields: private static final com.fasterxml.jackson.databind.ObjectMapper com.pengxinyang.chessgame.utils.JsonUtil.objectMapper
+2024-07-04T17:18:19.491+08:00  WARN 6992 --- [ChessGame] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-07-04T17:18:19.548+08:00 DEBUG 6992 --- [ChessGame] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 9 mappings in 'requestMappingHandlerMapping'
+2024-07-04T17:18:19.610+08:00 DEBUG 6992 --- [ChessGame] [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2024-07-04T17:18:19.628+08:00 DEBUG 6992 --- [ChessGame] [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2024-07-04T17:18:19.648+08:00 DEBUG 6992 --- [ChessGame] [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2024-07-04T17:18:19.810+08:00  INFO 6992 --- [ChessGame] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2024-07-04T17:18:19.916+08:00  INFO 6992 --- [ChessGame] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-07-04T17:18:19.918+08:00  WARN 6992 --- [ChessGame] [restartedMain] c.b.m.core.metadata.TableInfoHelper      : This primary key of "cid" is primitive !不建议如此请使用包装类 in Class: "com.pengxinyang.chessgame.entity.Chess"
+2024-07-04T17:18:19.929+08:00  WARN 6992 --- [ChessGame] [restartedMain] c.b.m.core.metadata.TableInfoHelper      : This primary key of "cid" is primitive !不建议如此请使用包装类 in Class: "com.pengxinyang.chessgame.entity.ChessStats"
+2024-07-04T17:18:19.959+08:00  INFO 6992 --- [ChessGame] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/chess'
+2024-07-04T17:18:19.965+08:00  INFO 6992 --- [ChessGame] [restartedMain] c.p.chessgame.ChessGameApplication       : Started ChessGameApplication in 2.42 seconds (process running for 2.887)
+2024-07-04T17:19:46.118+08:00  INFO 6992 --- [ChessGame] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-07-04T17:19:46.120+08:00  INFO 6992 --- [ChessGame] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-07-04T17:19:46.125+08:00  INFO 6992 --- [ChessGame] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
