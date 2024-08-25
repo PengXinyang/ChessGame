@@ -1,24 +1,73 @@
 package com.pengxinyang.chessgame.service.impl.user;
 
+import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.pengxinyang.chessgame.entity.ResponseResult;
 import com.pengxinyang.chessgame.entity.User;
+import com.pengxinyang.chessgame.im.IMServer;
 import com.pengxinyang.chessgame.mapper.UserMapper;
+import com.pengxinyang.chessgame.service.tools.CurrentUser;
 import com.pengxinyang.chessgame.service.user.UserService;
+import com.pengxinyang.chessgame.utils.JsonWebTokenTool;
+import com.pengxinyang.chessgame.utils.OssTool;
+import com.pengxinyang.chessgame.utils.RedisTool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import io.netty.channel.Channel;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Service
 public class UserServiceImpl implements UserService {
+    @Value("${oss.bucketUrl}")
+    private String OSS_BUCKET_URL;
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    @Lazy
+    private UserService userService;
+
+    @Autowired
+    private RedisTool redisTool;
+
+    @Autowired
+    private JsonWebTokenTool jsonWebTokenTool;
+
+    @Autowired
+    private CurrentUser currentUser;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private AuthenticationProvider authenticationProvider;
+
+    @Qualifier("taskExecutor")
+    @Autowired
+    private Executor taskExecutor;
+
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
+    @Autowired
+    private OssTool ossTool;
 
     /**
      * 用户注册
@@ -126,8 +175,27 @@ public class UserServiceImpl implements UserService {
         updateWrapper.eq("account", account);
         updateWrapper.set("login_state", 1);
         userMapper.update(updateWrapper);
+        //将uid封装成一个jwttoken，同时token也会被缓存到redis中
+        String token = jsonWebTokenTool.createToken(user.getUid().toString(), "user");
         user.setLoginState(1);
-        result.setData(user);
+        try {
+            // 把完整的用户信息存入redis，时间跟token一样，注意单位
+            // 这里缓存的user信息建议只供读取uid用，其中的状态等非静态数据可能不准，所以 redis另外存值
+            String jsonString = JSON.toJSONString(user);
+            redisTemplate.opsForValue().set(
+                    "security:user:" + user.getUid(),
+                    jsonString,
+                    60L * 60 * 24 * 2,
+                    TimeUnit.SECONDS
+            );
+        } catch (Exception e) {
+            log.error("存储redis数据失败");
+            throw e;
+        }
+        Map<String,Object> userMap = new HashMap<>();
+        userMap.put("token", token);
+        userMap.put("user", user);
+        result.setData(userMap);
         result.setMessage("登录成功");
         return result;
     }
@@ -149,6 +217,34 @@ public class UserServiceImpl implements UserService {
         updateWrapper.set("login_state", 0);
         userMapper.update(updateWrapper);
         user.setLoginState(0);
+        Integer LoginUserId = currentUser.getUserId();
+        // 清除redis中该用户的登录认证数据
+        //1注释Redis
+        redisTool.deleteValue("token:user:" + LoginUserId);
+        redisTool.deleteValue("security:user:" + LoginUserId);
+        redisTool.deleteSetMember("login_member", LoginUserId);   // 从在线用户集合中移除
+        // 清除全部在聊天窗口的状态,删除指定前缀的所有key
+        // 获取以指定前缀开头的所有键
+        Set<String> userKeys = redisTemplate.keys("message:" + LoginUserId + ":" + "*");
+        // 删除匹配的键
+        if (userKeys != null && !userKeys.isEmpty()) {
+            redisTemplate.delete(userKeys);
+        }
+
+        // 断开全部该用户的channel 并从 userChannel 移除该用户
+        Set<Channel> userChannels = IMServer.userChannel.get(LoginUserId);
+        if(userChannels == null){ return result;}
+        else{
+            for (Channel channel : userChannels) {
+                try {
+                    channel.close().sync(); // 等待通道关闭完成
+                } catch (InterruptedException e) {
+                    // 处理异常，如果有必要的话
+                    e.printStackTrace();
+                }
+            }
+            IMServer.userChannel.remove(LoginUserId);
+        }
         result.setData(user);
         result.setMessage("登出成功");
         return result;
@@ -209,6 +305,8 @@ public class UserServiceImpl implements UserService {
         map.put("account",user.getAccount());
         map.put("name",user.getName());
         map.put("description",user.getDescription());
+        map.put("avatar",user.getAvatar());
+        map.put("background",user.getBackground());
         map.put("experience",user.getExperience());
         map.put("threshold",user.getThreshold());
         map.put("level",user.getLevel());
@@ -242,6 +340,37 @@ public class UserServiceImpl implements UserService {
         userMapper.update(updateWrapper);
         result.setMessage("更新成功！");
         return result;
+    }
+
+    /**
+     * 更新用户头像
+     * @param uid
+     * @param file
+     * @return
+     * @throws IOException
+     */
+    @Override
+    public ResponseResult updateUserAvatar(Integer uid, MultipartFile file) throws IOException {
+        ResponseResult responseResult = new ResponseResult();
+        // 保存封面到OSS，返回URL
+        String headPortrait_url = ossTool.uploadImage(file, "headPortrait");
+        // 查旧的头像地址
+        User user = userMapper.selectById(uid);
+        // 先更新数据库
+        UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("uid", uid).set("head_portrait", headPortrait_url);
+        userMapper.update(null, updateWrapper);
+        CompletableFuture.runAsync(() -> {
+            //1注释Redis
+            redisTool.deleteValue("user:" + uid);  // 删除redis缓存
+            // 如果就头像不是初始头像就去删除OSS的源文件
+            if (user.getAvatar().startsWith(OSS_BUCKET_URL)) {
+                String filename = user.getAvatar().substring(OSS_BUCKET_URL.length());
+                ossTool.deleteFiles(filename);
+            }
+        }, taskExecutor);
+        responseResult.setData(headPortrait_url);
+        return responseResult;
     }
 
     /**

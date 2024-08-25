@@ -34,4 +34,10 @@ public interface ChessService {
      * @return 棋子状态
      */
     ChessStats getStatsByXY(int x,int y);
+
+    /**
+     * 吃掉这个棋子
+     * @param chessStats 棋子状态
+     */
+    void eatChess(ChessStats chessStats);
 }

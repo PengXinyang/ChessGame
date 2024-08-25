@@ -1,6 +1,9 @@
 package com.pengxinyang.chessgame.service.user;
 
 import com.pengxinyang.chessgame.entity.ResponseResult;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 public interface UserService {
     /**
@@ -49,6 +52,9 @@ public interface UserService {
      * @param description 个人介绍
      */
     ResponseResult updateUserInfo(int uid, String name, String description);
+
+    ResponseResult updateUserAvatar(Integer uid, MultipartFile file) throws IOException;
+
     /**
      * 升级
      * @param uid 用户id

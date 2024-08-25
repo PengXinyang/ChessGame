@@ -10,7 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ChessStats {
     @TableId
-    private int cid;//棋子id
-    private int x;//坐标x
-    private int y;//坐标y
+    private Integer cid;//棋子id
+    private Integer x;//坐标x
+    private Integer y;//坐标y
+    private Integer color;//颜色
+    private Integer ate;//标记是否被吃掉。1 是已经被吃掉
 }
