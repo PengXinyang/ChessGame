@@ -603,4 +603,46 @@ public class ChessServiceImpl implements ChessService {
         map.put("棋子可能的纵坐标位置",Ylist);
         return map;
     }
+
+    /**
+     * 初始化游戏棋盘
+     */
+    @Override
+    public void initGame(){
+        chessStatsMapper.deleteChessStats();
+        UpdateWrapper<ChessStats> chessStatsUpdateWrapper = new UpdateWrapper<>();
+        int cid = 0;
+        //复原最下面一排棋子
+        for(cid = 1;cid<=9;++cid){
+            chessStatsUpdateWrapper.eq("cid",cid).set("x",cid-1).set("y",0);
+            chessStatsMapper.update(chessStatsUpdateWrapper);
+        }
+        //复原炮
+        cid = 10;
+        chessStatsUpdateWrapper.eq("cid",cid).set("x",2).set("y",2);
+        chessStatsMapper.update(chessStatsUpdateWrapper);
+        cid = 11;
+        chessStatsUpdateWrapper.eq("cid",cid).set("x",6).set("y",2);
+        chessStatsMapper.update(chessStatsUpdateWrapper);
+        //复原兵
+        for(cid = 12;cid<=16;++cid){
+            chessStatsUpdateWrapper.eq("cid",cid).set("x",(cid-12)*2).set("y",3);
+            chessStatsMapper.update(chessStatsUpdateWrapper);
+        }
+        //下面同理，复原黑方棋子
+        for(cid = 17;cid<=25;++cid){
+            chessStatsUpdateWrapper.eq("cid",cid).set("x",cid-17).set("y",9);
+            chessStatsMapper.update(chessStatsUpdateWrapper);
+        }
+        cid = 26;
+        chessStatsUpdateWrapper.eq("cid",cid).set("x",2).set("y",7);
+        chessStatsMapper.update(chessStatsUpdateWrapper);
+        cid = 27;
+        chessStatsUpdateWrapper.eq("cid",cid).set("x",6).set("y",7);
+        chessStatsMapper.update(chessStatsUpdateWrapper);
+        for(cid = 28;cid<=32;++cid){
+            chessStatsUpdateWrapper.eq("cid",cid).set("x",(cid-28)*2).set("y",6);
+            chessStatsMapper.update(chessStatsUpdateWrapper);
+        }
+    }
 }

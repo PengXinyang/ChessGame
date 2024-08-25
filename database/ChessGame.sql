@@ -71,11 +71,20 @@ DROP TABLE IF EXISTS `chess`;
 /*!50503 SET character_set_client = utf8mb4 */;
 create table `chess` (
     `cid` int(11) not null default 0 primary key comment '棋子id',
-    `uid` int(11) NOT NULL COMMENT '用户ID',
     `chess_name` varchar(5) not null comment '棋子名称',
     `color` int(11) not null default 0 comment '棋子颜色'
 )ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COMMENT='棋子表';
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+insert into chess values (1,'车',1),(2,'马',1),(3,'相',1),(4,'士',1),(5,'帅',1),
+                         (6,'士',1),(7,'相',1),(8,'马',1),(9,'车',1),(10,'炮',1),
+                         (11,'炮',1),(12,'兵',1),(13,'兵',1),(14,'兵',1),(15,'兵',1),
+                         (16,'兵',1);
+insert into chess values (17,'車',0),(18,'馬',0),(19,'象',0),(20,'仕',0),(21,'将',0),
+                         (22,'仕',0),(23,'象',0),(24,'馬',0),(25,'車',0),(26,'砲',0),
+                         (27,'砲',0),(28,'卒',0),(29,'卒',0),(30,'卒',0),(31,'卒',0),
+                         (32,'卒',0);
+
 
 DROP TABLE IF EXISTS `chess_stats`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;

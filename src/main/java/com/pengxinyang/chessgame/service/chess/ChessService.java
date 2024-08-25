@@ -40,4 +40,6 @@ public interface ChessService {
      * @param chessStats 棋子状态
      */
     void eatChess(ChessStats chessStats);
+
+    void initGame();
 }
