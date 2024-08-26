@@ -1,13 +1,20 @@
 package com.pengxinyang.chessgame.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.pengxinyang.chessgame.entity.ChessStats;
 import com.pengxinyang.chessgame.entity.ResponseResult;
 import com.pengxinyang.chessgame.mapper.ChessMapper;
 import com.pengxinyang.chessgame.mapper.ChessStatsMapper;
 import com.pengxinyang.chessgame.service.chess.ChessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 public class ChessController {
@@ -19,36 +26,83 @@ public class ChessController {
     private ChessStatsMapper chessStatsMapper;
 
     /**
-     * 游戏开始
-     * @param uid_red 红方uid
-     * @param uid_black 黑方uid
+     * 游戏开始，进行初始化
      * @return 响应对象
      */
-    @GetMapping("/game/start")
-    public ResponseResult startChessGame(@RequestParam("uid_red") int uid_red,
-                                         @RequestParam("uid_black") int uid_black){
-        ResponseResult result = new ResponseResult();
-        chessService.initGame();
-    }
-
-    /**
-     * 开始一场单机游戏，不用注册用户和登录
-     * @return 响应对象
-     */
-    @GetMapping("/game/one_person")
-    public ResponseResult startOnePersonGame(){
+    @GetMapping("/game/start_chess_game")
+    public ResponseResult startChessGame(){
         ResponseResult result = new ResponseResult();
         chessService.initGame();
         return result;
     }
 
     /**
-     * 开始用户对弈模式，不需要登录，也不需要调用人机接口
+     * 移动棋子
      */
-    @GetMapping("/game/together")
-    public ResponseResult startTogether(){
+    @PostMapping("/move/chess")
+    public ResponseResult moveChess(@RequestParam("cid") Integer cid,
+                                    @RequestParam("x") Integer x,
+                                    @RequestParam("y") Integer y){
+        ResponseResult result = chessService.ChessMove(cid,x,y);
+        Map<String, List<Integer>> map = chessService.ChessNext(cid);
+        List<Integer> Xlist = map.get("棋子可能的横坐标位置");
+        List<Integer> Ylist = map.get("棋子可能的纵坐标位置");
+        QueryWrapper<ChessStats> chessStatsQueryWrapper = new QueryWrapper<>();
+        chessStatsQueryWrapper.eq("cid", cid);
+        ChessStats chessStats = chessStatsMapper.selectOne(chessStatsQueryWrapper);
+        int color = chessStats.getColor();
+        int generalCid = 5;
+        if(color == 1){
+            //自己是红方，判断能不能对老将 将军
+            generalCid = 21;
+        }
+        Map<String,Integer> generalMap = chessService.getXYByCid(generalCid);
+        int gx = generalMap.get("x");
+        int gy = generalMap.get("y");
+        for(int i=0;i<Xlist.size();i++){
+            if(gx == Xlist.get(i) && gy == Ylist.get(i)){
+                //可能走到的点有老将
+                result.setMessage("将军");
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 根据棋子id获取位置
+     * @param cid 棋子id
+     * @return 响应对象
+     */
+    @GetMapping("/chess/position")
+    public ResponseResult getChessPosition(@RequestParam("cid") Integer cid){
         ResponseResult result = new ResponseResult();
-        chessService.initGame();
+        Map<String,Integer> map = chessService.getXYByCid(cid);
+        if(map == null){
+            result.setCode(404);
+            result.setMessage("没有找到棋子");
+        }
+        else result.setData(map);
+        return result;
+    }
+
+    @GetMapping("/chess/XYposition")
+    public ResponseResult getChessXYPosition(@RequestParam("x") Integer x,
+                                             @RequestParam("y") Integer y){
+        ResponseResult result = new ResponseResult();
+        ChessStats chessStats = chessService.getStatsByXY(x,y);
+        if(chessStats == null){
+            result.setMessage("没有棋子");
+        }
+        else{
+            Map<String,Object> map = new HashMap<>();
+            map.put("cid", chessStats.getCid());
+            map.put("x", x);
+            map.put("y", y);
+            map.put("color", chessStats.getColor());
+            map.put("ate", chessStats.getAte());
+            result.setMessage("有棋子");
+            result.setData(map);
+        }
         return result;
     }
 }

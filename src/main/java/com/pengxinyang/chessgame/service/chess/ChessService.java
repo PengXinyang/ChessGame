@@ -41,5 +41,7 @@ public interface ChessService {
      */
     void eatChess(ChessStats chessStats);
 
+    Map<String,Integer> getXYByCid(Integer cid);
+
     void initGame();
 }

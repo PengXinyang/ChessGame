@@ -141,6 +141,25 @@ public class ChessServiceImpl implements ChessService {
     }
 
     /**
+     * 根据棋子id获取位置
+     * @param cid 棋子id
+     * @return 坐标XY
+     */
+    @Override
+    public Map<String,Integer> getXYByCid(Integer cid){
+        QueryWrapper<ChessStats> chessStatsQueryWrapper = new QueryWrapper<>();
+        chessStatsQueryWrapper.eq("cid", cid);
+        ChessStats chessStats = chessStatsMapper.selectOne(chessStatsQueryWrapper);
+        if(chessStats==null){
+            return null;
+        }
+        Map<String,Integer> map = new HashMap<>();
+        map.put("x",chessStats.getX());
+        map.put("y",chessStats.getY());
+        return map;
+    }
+
+    /**
      * 判断老将能否走到点x，y
      * @param x 横坐标
      * @param y 纵坐标
@@ -186,9 +205,16 @@ public class ChessServiceImpl implements ChessService {
                 return null;
             }
         }
+        //注意，老将不能碰面，所以根据color先找到对方老将的位置
+        int generalCid = 5;
+        if(color == 1) generalCid = 21;
+        Map<String,Integer> generalMap = getXYByCid(generalCid);
+        Integer gx = generalMap.get("x");
+        Integer gy = generalMap.get("y");
         for(int i=x-1;i<x+2;i++){
             for(int j=y-1;j<y+2;j++){
-                if(generalXY(i,j,color)){
+                if(generalXY(i,j,color) && i!=gx){
+                    //老将不碰面
                     Xlist.add(i);
                     Ylist.add(j);
                 }
