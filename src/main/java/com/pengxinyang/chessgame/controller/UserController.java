@@ -24,11 +24,11 @@ public class UserController {
      * @param map 账户map
      */
     @PostMapping("/user/register")
-    public ResponseResult register(@RequestBody Map<String, String> map){
+    public ResponseResult register(@RequestBody Map<String, Object> map){
         ResponseResult result = new ResponseResult();
-        String account = map.get("account");
-        String password = map.get("password");
-        String confirmPassword = map.get("confirmPassword");
+        String account = (String) map.get("account");
+        String password = (String) map.get("password");
+        String confirmPassword = (String) map.get("confirmPassword");
         if(!isValidPassword(password) || !isValidPassword(confirmPassword)){
             result.setMessage("密码格式不正确，请重新输入");
             result.setCode(500);
@@ -47,7 +47,7 @@ public class UserController {
      * 用户登录
      * @param map 用户map
      */
-    @PostMapping("user/login")
+    @PostMapping("/user/login")
     public ResponseResult login(@RequestBody Map<String, String> map){
         ResponseResult result = new ResponseResult();
         String account = map.get("account");
@@ -70,7 +70,7 @@ public class UserController {
      * 用户登出
      *
      */
-    @PostMapping("user/logout")
+    @PostMapping("/user/logout")
     public ResponseResult logout(@RequestParam("uid") int uid){
         ResponseResult result = new ResponseResult();
         try{
@@ -85,7 +85,7 @@ public class UserController {
     /**
      * 重置密码
      */
-    @PostMapping("user/update/password")
+    @PostMapping("/user/update/password")
     public ResponseResult updatePassword(@RequestBody Map<String, String> map){
         ResponseResult result = new ResponseResult();
         String account = map.get("account");
@@ -109,7 +109,7 @@ public class UserController {
     /**
      * 获取用户信息
      */
-    @GetMapping("user/get/information")
+    @GetMapping("/user/get/information")
     public ResponseResult getUserInformation(@RequestParam("uid") int uid){
         try{
             return userService.getUserInfo(uid);
@@ -121,7 +121,7 @@ public class UserController {
     /**
      * 更新用户信息
      */
-    @PostMapping("user/update/information")
+    @PostMapping("/user/update/information")
     public ResponseResult updateUserInformation(@RequestParam("uid") int uid,
                                                 @RequestParam("name") String name,
                                                 @RequestParam("description") String description){
@@ -135,7 +135,7 @@ public class UserController {
     /**
      * 升级
      */
-    @PostMapping("user/update/level")
+    @PostMapping("/user/update/level")
     public ResponseResult updateUserLevel(@RequestParam("uid") int uid,
                                           @RequestParam("experience") int experience,
                                           @RequestParam("isAdd") int isAdd){

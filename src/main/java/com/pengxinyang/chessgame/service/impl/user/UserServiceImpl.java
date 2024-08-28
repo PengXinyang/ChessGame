@@ -7,7 +7,7 @@ import com.pengxinyang.chessgame.entity.ResponseResult;
 import com.pengxinyang.chessgame.entity.User;
 import com.pengxinyang.chessgame.im.IMServer;
 import com.pengxinyang.chessgame.mapper.UserMapper;
-import com.pengxinyang.chessgame.service.tools.CurrentUser;
+//import com.pengxinyang.chessgame.service.tools.CurrentUser;
 import com.pengxinyang.chessgame.service.user.UserService;
 import com.pengxinyang.chessgame.utils.JsonWebTokenTool;
 import com.pengxinyang.chessgame.utils.OssTool;
@@ -18,8 +18,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import io.netty.channel.Channel;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,23 +40,13 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Autowired
-    @Lazy
-    private UserService userService;
-
-    @Autowired
     private RedisTool redisTool;
 
     @Autowired
     private JsonWebTokenTool jsonWebTokenTool;
 
-    @Autowired
-    private CurrentUser currentUser;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private AuthenticationProvider authenticationProvider;
+//    @Autowired
+//    private CurrentUser currentUser;
 
     @Qualifier("taskExecutor")
     @Autowired
@@ -79,6 +67,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseResult register(String account, String password, String confirmPassword) {
         ResponseResult result = new ResponseResult();
+
         User user = new User();
         if(account == null || account.isEmpty() || password == null || password.isEmpty()){
             result.setCode(403);
@@ -121,8 +110,21 @@ public class UserServiceImpl implements UserService {
         user.setAccount(account);
         user.setPassword(password);
         user.setCreateDate(new Date());
-        userMapper.insert(user);
+        user.setName(account);
+        try{
+            userMapper.insert(user);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        Map<String,Object> map = new HashMap<>();
+        map.put("account", account);
+        map.put("password", password);
+        map.put("name",account);
+        map.put("state", 1);
+        map.put("create_date",new Date());
+        map.put("delete_date",null);
         result.setMessage("用户注册成功");
+        result.setData(map);
         return result;
     }
 
@@ -195,6 +197,7 @@ public class UserServiceImpl implements UserService {
         Map<String,Object> userMap = new HashMap<>();
         userMap.put("token", token);
         userMap.put("user", user);
+        userMap.put("user_name",user.getName());
         result.setData(userMap);
         result.setMessage("登录成功");
         return result;
@@ -217,7 +220,7 @@ public class UserServiceImpl implements UserService {
         updateWrapper.set("login_state", 0);
         userMapper.update(updateWrapper);
         user.setLoginState(0);
-        Integer LoginUserId = currentUser.getUserId();
+        Integer LoginUserId = uid;
         // 清除redis中该用户的登录认证数据
         //1注释Redis
         redisTool.deleteValue("token:user:" + LoginUserId);

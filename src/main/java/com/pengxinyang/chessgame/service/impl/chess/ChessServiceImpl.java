@@ -32,6 +32,7 @@ public class ChessServiceImpl implements ChessService {
         ResponseResult result = new ResponseResult();
         QueryWrapper<Chess> chessQueryWrapper = new QueryWrapper<>();
         chessQueryWrapper.eq("cid", cid);
+        //System.out.println("chessNext: "+cid);
         Chess chess = chessMapper.selectOne(chessQueryWrapper);
         if (chess == null) {
             result.setCode(404);
@@ -51,6 +52,7 @@ public class ChessServiceImpl implements ChessService {
         int y = chessStats.getY();
         String name = chess.getChessName();
         int color = chess.getColor();
+        System.out.println(chessStats);
         //处理老将的走法
         map = switch (name) {
             case "将", "帅" -> generalJudge(x, y, color);
@@ -88,6 +90,8 @@ public class ChessServiceImpl implements ChessService {
         Map<String,Integer> map = new HashMap<>();
         List<Integer> XList = nextChess.get("棋子可能的横坐标位置");
         List<Integer> YList = nextChess.get("棋子可能的纵坐标位置");
+        System.out.println("Xlist:"+XList);
+        System.out.println("Ylist:"+YList);
         for(int i=0;i<XList.size();i++){
             if(XList.get(i)==x){
                 if(YList.get(i)==y){
@@ -97,10 +101,14 @@ public class ChessServiceImpl implements ChessService {
                     map.put("y",y);
                     result.setData(map);
                     ChessStats oldChessStats = getStatsByXY(x,y);
+                    System.out.println("oldChessStats" + oldChessStats);
                     if(oldChessStats!=null && !Objects.equals(oldChessStats.getColor(), chess.getColor())){
                         //也就是说，X,Y这个地方有棋子，并且颜色不同，可以吃掉
+                        System.out.println("即将进入吃棋子部分");
                         eatChess(oldChessStats);
+                        map.put("eat",1);
                     }
+                    else map.put("eat",0);
                     UpdateWrapper<ChessStats> chessStatsUpdateWrapper = new UpdateWrapper<>();
                     chessStatsUpdateWrapper.eq("cid", cid);
                     chessStatsUpdateWrapper.set("x",x).set("y",y);
@@ -125,7 +133,7 @@ public class ChessServiceImpl implements ChessService {
     @Override
     public ChessStats getStatsByXY(int x, int y) {
         QueryWrapper<ChessStats> chessStatsQueryWrapper = new QueryWrapper<>();
-        chessStatsQueryWrapper.eq("cid", x).eq("y", y);
+        chessStatsQueryWrapper.eq("x", x).eq("y", y).eq("ate",0);
         return chessStatsMapper.selectOne(chessStatsQueryWrapper);
     }
 
@@ -135,6 +143,7 @@ public class ChessServiceImpl implements ChessService {
      */
     @Override
     public void eatChess(ChessStats chessStats){
+        System.out.println("吃棋子"+chessStats);
         UpdateWrapper<ChessStats> chessStatsUpdateWrapper = new UpdateWrapper<>();
         chessStatsUpdateWrapper.eq("cid", chessStats.getCid()).set("ate",1);
         chessStatsMapper.update(null,chessStatsUpdateWrapper);
@@ -213,10 +222,27 @@ public class ChessServiceImpl implements ChessService {
         Integer gy = generalMap.get("y");
         for(int i=x-1;i<x+2;i++){
             for(int j=y-1;j<y+2;j++){
-                if(generalXY(i,j,color) && i!=gx){
+                if(generalXY(i,j,color) && Math.abs(x-i)+Math.abs(y-j) == 1){
                     //老将不碰面
-                    Xlist.add(i);
-                    Ylist.add(j);
+                    int flag = 1;
+                    if(i==gx){
+                        //判断一列有没有棋子
+                        flag = 0;
+                        int miny = Math.min(j,gy);
+                        int maxy = Math.max(j,gy);
+                        for(int k = miny+1;k<maxy;++k){
+                            ChessStats YChessStats = getStatsByXY(gx,k);
+                            if(YChessStats!=null){
+                                //两个将之间有棋子，允许碰面
+                                flag = 1;
+                                break;
+                            }
+                        }
+                    }
+                    if(flag == 1){
+                        Xlist.add(i);
+                        Ylist.add(j);
+                    }
                 }
             }
         }
@@ -238,7 +264,7 @@ public class ChessServiceImpl implements ChessService {
         if(XYStats != null && XYStats.getColor() == color){
             return false;
         }
-        if((x==3||x==5) && (y==0 || y==3 || y==7 || y==9)) xy = true;
+        if((x==3||x==5) && (y==0 || y==2 || y==7 || y==9)) xy = true;
         else if(x==4 && (y==1 || y == 8)) xy = true;
         return xy;
     }
@@ -270,7 +296,7 @@ public class ChessServiceImpl implements ChessService {
         //士是斜着走，所以判断四个点即可
         for(int i=x-1;i<x+2;i+=2){
             for (int j=y-1;j<y+2;j+=2){
-                if(guardXY(i,j,color)){
+                if(guardXY(i,j,color) && Math.abs(x-i)+Math.abs(y-j) == 2){
                     Xlist.add(i);
                     Ylist.add(j);
                 }
@@ -313,7 +339,7 @@ public class ChessServiceImpl implements ChessService {
         for(int i=x-2;i<x+3;i+=4){
             for(int j=y-2;j<y+3;j+=4){
                 //判断是否会憋相眼
-                if(ministerXY(x,y,color)){
+                if(ministerXY(i,j,color)){
                     int ox = (i+x)/2,oy = (j+y)/2;
                     QueryWrapper<ChessStats> chessStatsQueryWrapper = new QueryWrapper<>();
                     chessStatsQueryWrapper.eq("x",ox).eq("y",oy);
@@ -411,7 +437,7 @@ public class ChessServiceImpl implements ChessService {
         //以X,Y为中心，直线扩散，直到有一个棋子为止
         for(int i=y+1;i<10;++i){
             //向上延伸
-            if(carXY(x,y,color)){
+            if(carXY(x,i,color)){
                 Xlist.add(x);
                 Ylist.add(i);
             }
@@ -420,7 +446,7 @@ public class ChessServiceImpl implements ChessService {
         }
         for(int i=y-1;i>=0;i--){
             //向下延伸
-            if(carXY(x,y,color)){
+            if(carXY(x,i,color)){
                 Xlist.add(x);
                 Ylist.add(i);
             }
@@ -429,7 +455,7 @@ public class ChessServiceImpl implements ChessService {
         }
         for(int i=x+1;i<9;i++){
             //向右延伸
-            if(carXY(x,y,color)){
+            if(carXY(i,y,color)){
                 Xlist.add(i);
                 Ylist.add(y);
             }
@@ -438,7 +464,7 @@ public class ChessServiceImpl implements ChessService {
         }
         for(int i=x-1;i>=0;i--){
             //向左延伸
-            if(carXY(x,y,color)){
+            if(carXY(i,y,color)){
                 Xlist.add(i);
                 Ylist.add(y);
             }
@@ -547,7 +573,7 @@ public class ChessServiceImpl implements ChessService {
         //以X,Y为中心，直线扩散，直到有一个棋子为止
         for(int i=y+1;i<10;++i){
             //向上延伸
-            if(cannonXY(x,y)){
+            if(cannonXY(x,i)){
                 Xlist.add(x);
                 Ylist.add(i);
             }
@@ -567,7 +593,7 @@ public class ChessServiceImpl implements ChessService {
         }
         for(int i=y-1;i>=0;i--){
             //向下延伸
-            if(cannonXY(x,y)){
+            if(cannonXY(x,i)){
                 Xlist.add(x);
                 Ylist.add(i);
             }
@@ -587,7 +613,7 @@ public class ChessServiceImpl implements ChessService {
         }
         for(int i=x+1;i<9;i++){
             //向右延伸
-            if(cannonXY(x,y)){
+            if(cannonXY(i,y)){
                 Xlist.add(i);
                 Ylist.add(y);
             }
@@ -607,7 +633,7 @@ public class ChessServiceImpl implements ChessService {
         }
         for(int i=x-1;i>=0;i--){
             //向左延伸
-            if(cannonXY(x,y)){
+            if(cannonXY(i,y)){
                 Xlist.add(i);
                 Ylist.add(y);
             }
@@ -636,39 +662,6 @@ public class ChessServiceImpl implements ChessService {
     @Override
     public void initGame(){
         chessStatsMapper.deleteChessStats();
-        UpdateWrapper<ChessStats> chessStatsUpdateWrapper = new UpdateWrapper<>();
-        int cid = 0;
-        //复原最下面一排棋子
-        for(cid = 1;cid<=9;++cid){
-            chessStatsUpdateWrapper.eq("cid",cid).set("x",cid-1).set("y",0);
-            chessStatsMapper.update(chessStatsUpdateWrapper);
-        }
-        //复原炮
-        cid = 10;
-        chessStatsUpdateWrapper.eq("cid",cid).set("x",2).set("y",2);
-        chessStatsMapper.update(chessStatsUpdateWrapper);
-        cid = 11;
-        chessStatsUpdateWrapper.eq("cid",cid).set("x",6).set("y",2);
-        chessStatsMapper.update(chessStatsUpdateWrapper);
-        //复原兵
-        for(cid = 12;cid<=16;++cid){
-            chessStatsUpdateWrapper.eq("cid",cid).set("x",(cid-12)*2).set("y",3);
-            chessStatsMapper.update(chessStatsUpdateWrapper);
-        }
-        //下面同理，复原黑方棋子
-        for(cid = 17;cid<=25;++cid){
-            chessStatsUpdateWrapper.eq("cid",cid).set("x",cid-17).set("y",9);
-            chessStatsMapper.update(chessStatsUpdateWrapper);
-        }
-        cid = 26;
-        chessStatsUpdateWrapper.eq("cid",cid).set("x",2).set("y",7);
-        chessStatsMapper.update(chessStatsUpdateWrapper);
-        cid = 27;
-        chessStatsUpdateWrapper.eq("cid",cid).set("x",6).set("y",7);
-        chessStatsMapper.update(chessStatsUpdateWrapper);
-        for(cid = 28;cid<=32;++cid){
-            chessStatsUpdateWrapper.eq("cid",cid).set("x",(cid-28)*2).set("y",6);
-            chessStatsMapper.update(chessStatsUpdateWrapper);
-        }
+        chessStatsMapper.insertAll();
     }
 }

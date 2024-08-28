@@ -32,7 +32,13 @@ public class ChessController {
     @GetMapping("/game/start_chess_game")
     public ResponseResult startChessGame(){
         ResponseResult result = new ResponseResult();
-        chessService.initGame();
+        try{
+            chessService.initGame();
+        }catch (Exception e){
+            result.setCode(500);
+            e.printStackTrace();
+            result.setMessage(e.getMessage());
+        }
         return result;
     }
 
@@ -43,10 +49,17 @@ public class ChessController {
     public ResponseResult moveChess(@RequestParam("cid") Integer cid,
                                     @RequestParam("x") Integer x,
                                     @RequestParam("y") Integer y){
+        /*System.out.println("进入moveChess环节");
+        System.out.println("cid:"+cid);
+        System.out.println("x:"+x);
+        System.out.println("y:"+y);*/
         ResponseResult result = chessService.ChessMove(cid,x,y);
+        System.out.println(",ove+ "+ result);
         Map<String, List<Integer>> map = chessService.ChessNext(cid);
         List<Integer> Xlist = map.get("棋子可能的横坐标位置");
         List<Integer> Ylist = map.get("棋子可能的纵坐标位置");
+        /*System.out.println("Xlist:"+Xlist);
+        System.out.println("Ylist:"+Ylist);*/
         QueryWrapper<ChessStats> chessStatsQueryWrapper = new QueryWrapper<>();
         chessStatsQueryWrapper.eq("cid", cid);
         ChessStats chessStats = chessStatsMapper.selectOne(chessStatsQueryWrapper);
@@ -103,6 +116,23 @@ public class ChessController {
             result.setMessage("有棋子");
             result.setData(map);
         }
+        return result;
+    }
+
+    /**
+     * 判断棋子是否死亡
+     */
+    @GetMapping("/get/die")
+    public ResponseResult getDie(@RequestParam("cid") Integer cid){
+        ResponseResult result = new ResponseResult();
+        QueryWrapper<ChessStats> chessStatsQueryWrapper = new QueryWrapper<>();
+        chessStatsQueryWrapper.eq("cid", cid);
+        ChessStats chessStats = chessStatsMapper.selectOne(chessStatsQueryWrapper);
+        if(chessStats == null){
+            result.setCode(404);
+            result.setMessage("没有找到这枚棋子");
+        }
+        else result.setData(chessStats.getAte());
         return result;
     }
 }

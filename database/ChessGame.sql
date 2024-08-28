@@ -1,3 +1,4 @@
+create database chess_db;
 use chess_db;
 DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -97,6 +98,43 @@ create table `chess_stats`(
     `ate` int(11) not null default 0 comment '是否被吃掉'
 )ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COMMENT='棋子状态表';
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+-- 红方 (color = 1)
+insert into chess_stats (cid, x, y, color, ate) values (1, 0, 0, 1, 0);
+insert into chess_stats (cid, x, y, color, ate) values (2, 1, 0, 1, 0);
+insert into chess_stats (cid, x, y, color, ate) values (3, 2, 0, 1, 0);
+insert into chess_stats (cid, x, y, color, ate) values (4, 3, 0, 1, 0);
+insert into chess_stats (cid, x, y, color, ate) values (5, 4, 0, 1, 0);
+insert into chess_stats (cid, x, y, color, ate) values (6, 5, 0, 1, 0);
+insert into chess_stats (cid, x, y, color, ate) values (7, 6, 0, 1, 0);
+insert into chess_stats (cid, x, y, color, ate) values (8, 7, 0, 1, 0);
+insert into chess_stats (cid, x, y, color, ate) values (9, 8, 0, 1, 0);
+insert into chess_stats (cid, x, y, color, ate) values (10, 1, 2, 1, 0);
+insert into chess_stats (cid, x, y, color, ate) values (11, 7, 2, 1, 0);
+insert into chess_stats (cid, x, y, color, ate) values (12, 0, 3, 1, 0);
+insert into chess_stats (cid, x, y, color, ate) values (13, 2, 3, 1, 0);
+insert into chess_stats (cid, x, y, color, ate) values (14, 4, 3, 1, 0);
+insert into chess_stats (cid, x, y, color, ate) values (15, 6, 3, 1, 0);
+insert into chess_stats (cid, x, y, color, ate) values (16, 8, 3, 1, 0);
+
+-- 黑方 (color = 0)
+insert into chess_stats (cid, x, y, color, ate) values (17, 0, 9, 0, 0);
+insert into chess_stats (cid, x, y, color, ate) values (18, 1, 9, 0, 0);
+insert into chess_stats (cid, x, y, color, ate) values (19, 2, 9, 0, 0);
+insert into chess_stats (cid, x, y, color, ate) values (20, 3, 9, 0, 0);
+insert into chess_stats (cid, x, y, color, ate) values (21, 4, 9, 0, 0);
+insert into chess_stats (cid, x, y, color, ate) values (22, 5, 9, 0, 0);
+insert into chess_stats (cid, x, y, color, ate) values (23, 6, 9, 0, 0);
+insert into chess_stats (cid, x, y, color, ate) values (24, 7, 9, 0, 0);
+insert into chess_stats (cid, x, y, color, ate) values (25, 8, 9, 0, 0);
+insert into chess_stats (cid, x, y, color, ate) values (26, 1, 7, 0, 0);
+insert into chess_stats (cid, x, y, color, ate) values (27, 7, 7, 0, 0);
+insert into chess_stats (cid, x, y, color, ate) values (28, 0, 6, 0, 0);
+insert into chess_stats (cid, x, y, color, ate) values (29, 2, 6, 0, 0);
+insert into chess_stats (cid, x, y, color, ate) values (30, 4, 6, 0, 0);
+insert into chess_stats (cid, x, y, color, ate) values (31, 6, 6, 0, 0);
+insert into chess_stats (cid, x, y, color, ate) values (32, 8, 6, 0, 0);
+
 
 --
 -- Table structure for table `message_unread`

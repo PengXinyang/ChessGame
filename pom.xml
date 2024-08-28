@@ -42,11 +42,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-			<version>2.7.15</version>
-		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -87,11 +83,6 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>5.3.12</version>
@@ -121,7 +112,12 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			<version>5.2.5.RELEASE</version>
+			<version>6.1.10</version> <!-- 确保版本与 spring-webmvc 一致 -->
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>6.1.10</version> <!-- 使用相同版本 -->
 		</dependency>
 
 		<!--一些常用工具类的包装-->
@@ -263,7 +259,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<finalName>bilimili</finalName> <!-- 设置 JAR 文件的名称 -->
+					<finalName>ChessGameBackend</finalName> <!-- 设置 JAR 文件的名称 -->
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
