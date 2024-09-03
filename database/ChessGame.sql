@@ -18,11 +18,14 @@ CREATE TABLE `user` (
                         `create_date` datetime NOT NULL COMMENT '创建时间',
                         `delete_date` datetime DEFAULT NULL COMMENT '注销时间',
                         `login_state` tinyint(4) NOT NULL DEFAULT '0' COMMENT '登录状态 0未登录 1登录',
+                        `match` tinyint(4) NOT NULL DEFAULT '0' COMMENT '匹配状态 0未匹配 1已匹配',
                         PRIMARY KEY (`uid`),
                         UNIQUE KEY `uid` (`uid`),
                         UNIQUE KEY `account` (`account`),
                         UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
+
+ALTER TABLE `user` ADD COLUMN `match` INT DEFAULT 0;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,11 +94,13 @@ DROP TABLE IF EXISTS `chess_stats`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 create table `chess_stats`(
-    `cid` int(11) not null default 0 primary key comment '棋子id',
+    `cid` int(11) not null default 0 comment '棋子id',
     `x` int(5) not null default 0 comment '坐标x',
     `y` int(5) not null default 0 comment '坐标y',
     `color` int(11) not null default 0 comment '棋子颜色',
-    `ate` int(11) not null default 0 comment '是否被吃掉'
+    `ate` int(11) not null default 0 comment '是否被吃掉',
+    `room_id` int(11) not null default 0 comment '房间id',
+    primary key (`cid`,`room_id`)
 )ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COMMENT='棋子状态表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -154,3 +159,68 @@ CREATE TABLE message_unread (
                                 PRIMARY KEY (`uid`),
                                 UNIQUE KEY `uid` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='消息未读数';
+
+DROP TABLE IF EXISTS `chess_move`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `chess_move` (
+                                 `cid` int(11) NOT NULL COMMENT '棋子id',
+                                 `room_id` int(11) NOT NULL COMMENT '房间id',
+                                 `fromX` int(11) NOT NULL COMMENT '原来的横坐标',
+                                 `fromY` int(11) NOT NULL COMMENT '原来的纵坐标',
+                                 `toX` int(11) NOT NULL COMMENT '到达的横坐标',
+                                 `toY` int(11) NOT NULL COMMENT '到达的纵坐标',
+                                 `uid` int(11) NOT NULL COMMENT '下棋者id',
+                                 PRIMARY KEY (`cid`),
+                                 UNIQUE KEY `cid` (`cid`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COMMENT='棋子移动表';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+DROP TABLE IF EXISTS `Room`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Room` (
+                              `room_id` int(11) NOT NULL auto_increment COMMENT '房间id',
+                              `room_name` varchar(200) comment '房间名称',
+                              `uid_red` int(11) COMMENT '红方uid',
+                              `uid_black` int(11) COMMENT '黑方uid',
+                              PRIMARY KEY (`room_id`),
+                              UNIQUE KEY `cid` (`room_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COMMENT='游戏房间表';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+delete from chess_stats where room_id = 1;
+
+
+insert into chess_stats (cid, x, y, color, ate, room_id) values (1, 0, 0, 1, 0, 1),
+                                                                 (2, 1, 0, 1, 0, 1),
+                                                                  (3, 2, 0, 1, 0, 1),
+                                                                   (4, 3, 0, 1, 0, 1),
+                                                                    (5, 4, 0, 1, 0, 1),
+                                                                     (6, 5, 0, 1, 0, 1),
+                                                                      (7, 6, 0, 1, 0, 1),
+                                                                       (8, 7, 0, 1, 0, 1),
+                                                                        (9, 8, 0, 1, 0, 1),
+                                                                         (10, 1, 2, 1, 0, 1),
+                                                                          (11, 7, 2, 1, 0, 1),
+                                                                           (12, 0, 3, 1, 0, 1),
+                                                                            (13, 2, 3, 1, 0, 1),
+                                                                             (14, 4, 3, 1, 0, 1),
+                                                                              (15, 6, 3, 1, 0, 1),
+                                                                               (16, 8, 3, 1, 0, 1),
+                                                                                (17, 0, 9, 0, 0, 1),
+                                                                                 (18, 1, 9, 0, 0, 1),
+                                                                                  (19, 2, 9, 0, 0, 1),
+                                                                                   (20, 3, 9, 0, 0, 1),
+                                                                                    (21, 4, 9, 0, 0, 1),
+                                                                                     (22, 5, 9, 0, 0, 1),
+                                                                                      (23, 6, 9, 0, 0, 1),
+                                                                                       (24, 7, 9, 0, 0, 1),
+                                                                                        (25, 8, 9, 0, 0, 1),
+                                                                                         (26, 1, 7, 0, 0, 1),
+                                                                                          (27, 7, 7, 0, 0, 1),
+                                                                                           (28, 0, 6, 0, 0, 1),
+                                                                                            (29, 2, 6, 0, 0, 1),
+                                                                                             (30, 4, 6, 0, 0, 1),
+                                                                                              (31, 6, 6, 0, 0, 1),
+                                                                                               (32, 8, 6, 0, 0, 1);

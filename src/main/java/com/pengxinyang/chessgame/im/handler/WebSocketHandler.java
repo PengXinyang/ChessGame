@@ -54,13 +54,16 @@ public class WebSocketHandler extends SimpleChannelInboundHandler<TextWebSocketF
                     Integer user_id = (Integer) ctx.channel().attr(AttributeKey.valueOf("userId")).get();
                     //NoticeHandler.send(ctx,tx);
                     break;
+                case Chess:
+                    ChessHandler.ChessHandle(ctx, tx);
+                    break;
+                case Room:
+                    RoomHandler.RoomHandle(ctx,tx);
                 default: ctx.channel().writeAndFlush(IMResponse.error("不支持的CODE " + command.getCode()));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
     /**

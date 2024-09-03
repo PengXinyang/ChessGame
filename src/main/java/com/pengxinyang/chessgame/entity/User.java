@@ -2,6 +2,7 @@ package com.pengxinyang.chessgame.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,9 +19,9 @@ public class User {
     private String account;//账户
     private String password;//密码
     private String name;//用户名
-    private String description;//个性签名
     private String avatar;//头像链接
     private String background;//背景链接
+    private String description;//个性签名
     private Integer experience;//经验
     private Integer threshold;//经验阈值
     private Integer level;//等级

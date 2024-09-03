@@ -26,6 +26,14 @@ public enum CommandType {
      */
 
     NOTICE(188),
+    /**
+     * 传输象棋数据
+     */
+    Chess(190),
+    /**
+     * 传输加入房间
+     */
+    Room(195),
 
     ERROR(-1),
     ;

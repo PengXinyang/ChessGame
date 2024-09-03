@@ -44,7 +44,18 @@ public class SecurityConfig { // 如果使用的是 Spring Security 6.x，则不
                                 "/game/start_chess_game",
                                 "/move/chess",
                                 "/chess/position",
-                                "/chess/XYposition"
+                                "/chess/XYposition",
+                                "/msg/chat/create/**",
+                                "/msg/chat/recent-list",
+                                "/msg/chat/delete/**",
+                                "/msg/chat/online",
+                                "/msg/chat/outline",
+                                "/msg/chat-detailed/get-more",
+                                "/msg/chat-detailed/delete",
+                                "/msg-unread/all",
+                                "/msg-unread/clear",
+                                "/create/room",
+                                "/get/room_id/by_name"
                         ).permitAll() // 允许公开访问认证相关的接口
                         .anyRequest().authenticated() // 其他所有请求需要认证
                 )

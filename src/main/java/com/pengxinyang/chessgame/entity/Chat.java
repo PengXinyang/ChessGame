@@ -19,5 +19,4 @@ public class Chat {
     private Integer isDeleted;  // 是否移除聊天 0否 1是
     private Integer unreadNum;     // 消息未读数
     private Date latestTime;    // 最近接收消息的时间或最近打开聊天窗口的时间
-
 }

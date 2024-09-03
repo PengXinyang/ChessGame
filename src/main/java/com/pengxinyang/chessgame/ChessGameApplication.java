@@ -1,5 +1,6 @@
 package com.pengxinyang.chessgame;
 
+import com.pengxinyang.chessgame.im.IMServer;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,5 +13,12 @@ import org.springframework.jmx.support.RegistrationPolicy;
 public class ChessGameApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ChessGameApplication.class, args);
+		new Thread(() -> {
+			try {
+				new IMServer().start();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}).start();
 	}
 }

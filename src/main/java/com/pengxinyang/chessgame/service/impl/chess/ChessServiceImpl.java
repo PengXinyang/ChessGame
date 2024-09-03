@@ -13,23 +13,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 @Service
 @Slf4j
 public class ChessServiceImpl implements ChessService {
+    // 使用 ReentrantLock 作为锁
+    private final Lock lock = new ReentrantLock();
     @Autowired
     private ChessMapper chessMapper;
     @Autowired
     private ChessStatsMapper chessStatsMapper;
+    private Integer roomId;
     /**
      * 这个接口用于统一棋子的移动方法
      *
-     * @param cid 棋子id
+     * @param cid    棋子id
+     * @param roomId
      * @return 响应结果，包含下一步能走哪些位置
      */
     @Override
-    public Map<String, List<Integer>> ChessNext(int cid) {
+    public Map<String, List<Integer>> ChessNext(int cid, int roomId) {
         ResponseResult result = new ResponseResult();
+        this.roomId = roomId;
         QueryWrapper<Chess> chessQueryWrapper = new QueryWrapper<>();
         chessQueryWrapper.eq("cid", cid);
         //System.out.println("chessNext: "+cid);
@@ -40,7 +47,7 @@ public class ChessServiceImpl implements ChessService {
             return null;
         }
         QueryWrapper<ChessStats> chessStatsQueryWrapper = new QueryWrapper<>();
-        chessStatsQueryWrapper.eq("cid", cid);
+        chessStatsQueryWrapper.eq("cid", cid).eq("room_id", roomId);
         ChessStats chessStats = chessStatsMapper.selectOne(chessStatsQueryWrapper);
         if (chessStats == null) {
             result.setCode(404);
@@ -52,7 +59,7 @@ public class ChessServiceImpl implements ChessService {
         int y = chessStats.getY();
         String name = chess.getChessName();
         int color = chess.getColor();
-        System.out.println(chessStats);
+        //System.out.println(chessStats);
         //处理老将的走法
         map = switch (name) {
             case "将", "帅" -> generalJudge(x, y, color);
@@ -70,15 +77,17 @@ public class ChessServiceImpl implements ChessService {
     /**
      * 反映棋子移动的函数
      *
-     * @param cid 棋子的id
-     * @param x 移动到x
-     * @param y 移动到y
+     * @param cid    棋子的id
+     * @param x      移动到x
+     * @param y      移动到y
+     * @param roomId
      * @return 响应结果，标记这个棋子走到哪里了
      */
     @Override
-    public ResponseResult ChessMove(int cid, int x, int y) {
+    public ResponseResult ChessMove(int cid, int x, int y, int roomId) {
         ResponseResult result = new ResponseResult();
-        Map<String,List<Integer>> nextChess = ChessNext(cid);
+        this.roomId = roomId;
+        Map<String,List<Integer>> nextChess = ChessNext(cid, roomId);
         QueryWrapper<Chess> chessQueryWrapper = new QueryWrapper<>();
         chessQueryWrapper.eq("cid", cid);
         Chess chess = chessMapper.selectOne(chessQueryWrapper);
@@ -100,7 +109,7 @@ public class ChessServiceImpl implements ChessService {
                     map.put("x",x);
                     map.put("y",y);
                     result.setData(map);
-                    ChessStats oldChessStats = getStatsByXY(x,y);
+                    ChessStats oldChessStats = getStatsByXY(x,y, roomId);
                     System.out.println("oldChessStats" + oldChessStats);
                     if(oldChessStats!=null && !Objects.equals(oldChessStats.getColor(), chess.getColor())){
                         //也就是说，X,Y这个地方有棋子，并且颜色不同，可以吃掉
@@ -110,7 +119,7 @@ public class ChessServiceImpl implements ChessService {
                     }
                     else map.put("eat",0);
                     UpdateWrapper<ChessStats> chessStatsUpdateWrapper = new UpdateWrapper<>();
-                    chessStatsUpdateWrapper.eq("cid", cid);
+                    chessStatsUpdateWrapper.eq("cid", cid).eq("room_id", roomId);
                     chessStatsUpdateWrapper.set("x",x).set("y",y);
                     chessStatsMapper.update(null,chessStatsUpdateWrapper);
                     return result;
@@ -126,14 +135,15 @@ public class ChessServiceImpl implements ChessService {
     /**
      * 根据坐标点查找这里有没有棋子,用于判断能否其它棋子能否移动
      *
-     * @param x 横坐标
-     * @param y 纵坐标
+     * @param x      横坐标
+     * @param y      纵坐标
+     * @param roomId
      * @return 棋子状态
      */
     @Override
-    public ChessStats getStatsByXY(int x, int y) {
+    public ChessStats getStatsByXY(int x, int y, int roomId) {
         QueryWrapper<ChessStats> chessStatsQueryWrapper = new QueryWrapper<>();
-        chessStatsQueryWrapper.eq("x", x).eq("y", y).eq("ate",0);
+        chessStatsQueryWrapper.eq("x", x).eq("y", y).eq("room_id",roomId).eq("ate",0);
         return chessStatsMapper.selectOne(chessStatsQueryWrapper);
     }
 
@@ -145,19 +155,21 @@ public class ChessServiceImpl implements ChessService {
     public void eatChess(ChessStats chessStats){
         System.out.println("吃棋子"+chessStats);
         UpdateWrapper<ChessStats> chessStatsUpdateWrapper = new UpdateWrapper<>();
-        chessStatsUpdateWrapper.eq("cid", chessStats.getCid()).set("ate",1);
+        chessStatsUpdateWrapper.eq("cid", chessStats.getCid()).eq("room_id",chessStats.getRoomId()).set("ate",1);
         chessStatsMapper.update(null,chessStatsUpdateWrapper);
     }
 
     /**
      * 根据棋子id获取位置
-     * @param cid 棋子id
+     *
+     * @param cid    棋子id
+     * @param roomId
      * @return 坐标XY
      */
     @Override
-    public Map<String,Integer> getXYByCid(Integer cid){
+    public Map<String,Integer> getXYByCid(Integer cid, int roomId){
         QueryWrapper<ChessStats> chessStatsQueryWrapper = new QueryWrapper<>();
-        chessStatsQueryWrapper.eq("cid", cid);
+        chessStatsQueryWrapper.eq("cid", cid).eq("room_id",roomId);
         ChessStats chessStats = chessStatsMapper.selectOne(chessStatsQueryWrapper);
         if(chessStats==null){
             return null;
@@ -175,7 +187,7 @@ public class ChessServiceImpl implements ChessService {
      * @return 是非
      */
     private boolean generalXY(int x, int y, int color) {
-        ChessStats XYStats = getStatsByXY(x, y);
+        ChessStats XYStats = getStatsByXY(x, y, roomId);
         if(XYStats != null && XYStats.getColor() == color){
             //如果颜色相同就不能走，如果颜色不同就可以吃掉
             return false;
@@ -217,7 +229,7 @@ public class ChessServiceImpl implements ChessService {
         //注意，老将不能碰面，所以根据color先找到对方老将的位置
         int generalCid = 5;
         if(color == 1) generalCid = 21;
-        Map<String,Integer> generalMap = getXYByCid(generalCid);
+        Map<String,Integer> generalMap = getXYByCid(generalCid, roomId);
         Integer gx = generalMap.get("x");
         Integer gy = generalMap.get("y");
         for(int i=x-1;i<x+2;i++){
@@ -231,7 +243,7 @@ public class ChessServiceImpl implements ChessService {
                         int miny = Math.min(j,gy);
                         int maxy = Math.max(j,gy);
                         for(int k = miny+1;k<maxy;++k){
-                            ChessStats YChessStats = getStatsByXY(gx,k);
+                            ChessStats YChessStats = getStatsByXY(gx,k, roomId);
                             if(YChessStats!=null){
                                 //两个将之间有棋子，允许碰面
                                 flag = 1;
@@ -260,7 +272,7 @@ public class ChessServiceImpl implements ChessService {
      */
     private boolean guardXY(int x,int y, int color){
         boolean xy = false;
-        ChessStats XYStats = getStatsByXY(x, y);
+        ChessStats XYStats = getStatsByXY(x, y, roomId);
         if(XYStats != null && XYStats.getColor() == color){
             return false;
         }
@@ -314,7 +326,7 @@ public class ChessServiceImpl implements ChessService {
      * @return 是否
      */
     private boolean ministerXY(int x,int y, int color){
-        ChessStats XYStats = getStatsByXY(x, y);
+        ChessStats XYStats = getStatsByXY(x, y, roomId);
         if(XYStats != null && XYStats.getColor() == color){
             return false;
         }
@@ -364,7 +376,7 @@ public class ChessServiceImpl implements ChessService {
      * @return 是否能到达XY
      */
     private boolean horseXY(int x,int y,int color){
-        ChessStats XYStats = getStatsByXY(x, y);
+        ChessStats XYStats = getStatsByXY(x, y, roomId);
         if(XYStats != null && XYStats.getColor() == color){
             return false;
         }
@@ -392,7 +404,7 @@ public class ChessServiceImpl implements ChessService {
                 for(int j=y-2;j<y+3;j+=4){
                     if(horseXY(i,j,color)){
                         //判断是否蹩马腿
-                        if(getStatsByXY(x,(y+j)/2)==null){
+                        if(getStatsByXY(x,(y+j)/2, roomId)==null){
                             Xlist.add(i);
                             Ylist.add(j);
                         }
@@ -402,7 +414,7 @@ public class ChessServiceImpl implements ChessService {
             else if(k==2){
                 for(int j=y-1;j<y+2;j+=2){
                     if(horseXY(i,j,color)){
-                        if(getStatsByXY((x+i)/2,y)==null){
+                        if(getStatsByXY((x+i)/2,y, roomId)==null){
                             Xlist.add(i);
                             Ylist.add(j);
                         }
@@ -423,7 +435,7 @@ public class ChessServiceImpl implements ChessService {
      * @return boolean
      */
     private boolean carXY(int x,int y,int color){
-        ChessStats XYStats = getStatsByXY(x, y);
+        ChessStats XYStats = getStatsByXY(x, y, roomId);
         if(XYStats != null && XYStats.getColor() == color){
             return false;
         }
@@ -441,7 +453,7 @@ public class ChessServiceImpl implements ChessService {
                 Xlist.add(x);
                 Ylist.add(i);
             }
-            ChessStats XYStats = getStatsByXY(x, i);
+            ChessStats XYStats = getStatsByXY(x, i, roomId);
             if(XYStats != null){break;}
         }
         for(int i=y-1;i>=0;i--){
@@ -450,7 +462,7 @@ public class ChessServiceImpl implements ChessService {
                 Xlist.add(x);
                 Ylist.add(i);
             }
-            ChessStats XYStats = getStatsByXY(x, i);
+            ChessStats XYStats = getStatsByXY(x, i, roomId);
             if(XYStats != null){break;}
         }
         for(int i=x+1;i<9;i++){
@@ -459,7 +471,7 @@ public class ChessServiceImpl implements ChessService {
                 Xlist.add(i);
                 Ylist.add(y);
             }
-            ChessStats XYStats = getStatsByXY(i, y);
+            ChessStats XYStats = getStatsByXY(i, y, roomId);
             if(XYStats != null){break;}
         }
         for(int i=x-1;i>=0;i--){
@@ -468,7 +480,7 @@ public class ChessServiceImpl implements ChessService {
                 Xlist.add(i);
                 Ylist.add(y);
             }
-            ChessStats XYStats = getStatsByXY(i, y);
+            ChessStats XYStats = getStatsByXY(i, y, roomId);
             if(XYStats != null){break;}
         }
         map.put("棋子可能的横坐标位置",Xlist);
@@ -484,7 +496,7 @@ public class ChessServiceImpl implements ChessService {
      * @return boolean
      */
     private boolean soldierXY(int x,int y,int color){
-        ChessStats XYStats = getStatsByXY(x, y);
+        ChessStats XYStats = getStatsByXY(x, y, roomId);
         if(XYStats != null && XYStats.getColor() == color){
             return false;
         }
@@ -558,7 +570,7 @@ public class ChessServiceImpl implements ChessService {
      * @return boolean
      */
     private boolean cannonXY(int x,int y){
-        ChessStats XYStats = getStatsByXY(x, y);
+        ChessStats XYStats = getStatsByXY(x, y, roomId);
         if(XYStats != null){
             //炮因为只能隔着打，所以距离炮最近的棋子，无论是不是敌方棋子都不能吃
             return false;
@@ -577,11 +589,11 @@ public class ChessServiceImpl implements ChessService {
                 Xlist.add(x);
                 Ylist.add(i);
             }
-            ChessStats XYStats = getStatsByXY(x, i);
+            ChessStats XYStats = getStatsByXY(x, i, roomId);
             if(XYStats != null){
                 //判断后面有没有敌方棋子，如果有的话是可以吃掉的
                 for(int j=i+1;j<10;++j){
-                    XYStats = getStatsByXY(x, j);
+                    XYStats = getStatsByXY(x, j, roomId);
                     if(XYStats!=null && XYStats.getColor()!=color){
                         Xlist.add(x);
                         Ylist.add(j);
@@ -597,11 +609,11 @@ public class ChessServiceImpl implements ChessService {
                 Xlist.add(x);
                 Ylist.add(i);
             }
-            ChessStats XYStats = getStatsByXY(x, i);
+            ChessStats XYStats = getStatsByXY(x, i, roomId);
             if(XYStats != null){
                 //判断后面有没有敌方棋子，如果有的话是可以吃掉的
                 for(int j=i-1;j>=0;--j){
-                    XYStats = getStatsByXY(x, j);
+                    XYStats = getStatsByXY(x, j, roomId);
                     if(XYStats!=null && XYStats.getColor()!=color){
                         Xlist.add(x);
                         Ylist.add(j);
@@ -617,11 +629,11 @@ public class ChessServiceImpl implements ChessService {
                 Xlist.add(i);
                 Ylist.add(y);
             }
-            ChessStats XYStats = getStatsByXY(i, y);
+            ChessStats XYStats = getStatsByXY(i, y, roomId);
             if(XYStats != null){
                 //判断后面有没有敌方棋子，如果有的话是可以吃掉的
                 for(int j=i+1;j<9;++j){
-                    XYStats = getStatsByXY(j, y);
+                    XYStats = getStatsByXY(j, y, roomId);
                     if(XYStats!=null && XYStats.getColor()!=color){
                         Xlist.add(j);
                         Ylist.add(y);
@@ -637,11 +649,11 @@ public class ChessServiceImpl implements ChessService {
                 Xlist.add(i);
                 Ylist.add(y);
             }
-            ChessStats XYStats = getStatsByXY(i, y);
+            ChessStats XYStats = getStatsByXY(i, y, roomId);
             if(XYStats != null){
                 //判断后面有没有敌方棋子，如果有的话是可以吃掉的
                 for(int j=i-1;j>=0;--j){
-                    XYStats = getStatsByXY(j, y);
+                    XYStats = getStatsByXY(j, y, roomId);
                     if(XYStats!=null && XYStats.getColor()!=color){
                         Xlist.add(j);
                         Ylist.add(y);
@@ -660,8 +672,14 @@ public class ChessServiceImpl implements ChessService {
      * 初始化游戏棋盘
      */
     @Override
-    public void initGame(){
-        chessStatsMapper.deleteChessStats();
-        chessStatsMapper.insertAll();
+    public void initGame(int roomId) throws InterruptedException {
+        lock.lock();
+        try{
+            System.out.println("调用了初始化游戏函数："+roomId);
+            chessStatsMapper.deleteChessStats(roomId);
+            chessStatsMapper.insertAll(roomId);
+        }finally {
+            lock.unlock();
+        }
     }
 }

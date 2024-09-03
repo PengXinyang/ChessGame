@@ -7,7 +7,7 @@ import com.pengxinyang.chessgame.entity.ResponseResult;
 import com.pengxinyang.chessgame.entity.User;
 import com.pengxinyang.chessgame.im.IMServer;
 import com.pengxinyang.chessgame.mapper.UserMapper;
-//import com.pengxinyang.chessgame.service.tools.CurrentUser;
+import com.pengxinyang.chessgame.service.tools.CurrentUser;
 import com.pengxinyang.chessgame.service.user.UserService;
 import com.pengxinyang.chessgame.utils.JsonWebTokenTool;
 import com.pengxinyang.chessgame.utils.OssTool;
@@ -67,7 +67,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseResult register(String account, String password, String confirmPassword) {
         ResponseResult result = new ResponseResult();
-
         User user = new User();
         if(account == null || account.isEmpty() || password == null || password.isEmpty()){
             result.setCode(403);
@@ -87,7 +86,7 @@ public class UserServiceImpl implements UserService {
         account = account.trim();//删除空白符
         password = password.trim();
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("account", account);
+        queryWrapper.eq("account", account).ne("state",1);
         User queryUser = userMapper.selectOne(queryWrapper);
         if(queryUser != null){
             if(queryUser.getState() == 0){
@@ -159,10 +158,17 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public ResponseResult login(String account, String password) {
+        //System.out.println("进入login");
         ResponseResult result = new ResponseResult();
         QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
-        userQueryWrapper.eq("account", account);
-        User user = userMapper.selectOne(userQueryWrapper);
+        userQueryWrapper.eq("account", account).ne("state",1);
+        User user = new User();
+        try{
+            user = userMapper.selectOne(userQueryWrapper);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        System.out.println("user: "+user);
         if (user == null) {
             result.setCode(403);
             result.setMessage("该用户不存在，请先注册");
@@ -173,6 +179,8 @@ public class UserServiceImpl implements UserService {
             result.setMessage("密码错误，请重新输入");
             return result;
         }
+        // 更新redis中的数据
+        redisTool.setExObjectValue("user:" + user.getUid(), user);  // 默认存活1小时
         UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
         updateWrapper.eq("account", account);
         updateWrapper.set("login_state", 1);

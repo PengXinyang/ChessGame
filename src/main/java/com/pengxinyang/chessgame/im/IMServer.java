@@ -53,7 +53,7 @@ public class IMServer {
 
                             }
                         });
-                ChannelFuture future = bootstrap.bind(7071).sync();
+                ChannelFuture future = bootstrap.bind(9091).sync();
                 future.channel().closeFuture().sync();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
@@ -81,66 +81,6 @@ public class IMServer {
     }
 
     private void configurePipeline(ChannelPipeline pipeline) {
-        pipeline.addLast(new HttpServerCodec())
-                .addLast(new ChunkedWriteHandler())
-                .addLast(new HttpObjectAggregator(1024 * 64))
-                .addLast(new TokenValidationHandler())
-                .addLast(new WebSocketServerProtocolHandler("/im"))
-                .addLast(new WebSocketHandler());
-    }
-
-    public void startIn() {
-        Callable<Void> serverTask = () -> {
-            try {
-                EventLoopGroup boss = new NioEventLoopGroup();
-                EventLoopGroup worker = new NioEventLoopGroup();
-
-                ServerBootstrap bootstrap = new ServerBootstrap();
-                bootstrap.group(boss, worker)
-                        .channel(NioServerSocketChannel.class)
-                        .childHandler(new ChannelInitializer<SocketChannel>() {
-                            @Override
-                            protected void initChannel(SocketChannel socketChannel) throws Exception {
-                                ChannelPipeline pipeline = socketChannel.pipeline();
-                                WebSocketPipelineFactory.configurePipeline(pipeline);
-                                WebSocketChannelInitializer channelInitializer = new WebSocketChannelInitializer();
-                                channelInitializer.initChannel(socketChannel);
-                                pipeline.addLast(channelInitializer);
-                                configurePipeline(pipeline);
-                            }
-                        });
-
-                ChannelFuture future = bootstrap.bind(7071).sync();
-                future.channel().closeFuture().sync();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-            return null;
-        };
-
-        Future<Void> future = executorService.submit(serverTask);
-
-        try {
-            // 阻塞主线程，直到服务器任务完成
-            future.get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        } finally {
-            executorService.shutdown();
-        }
-    }
-}
-
-class WebSocketChannelInitializer extends ChannelInitializer<SocketChannel> {
-    @Override
-    protected void initChannel(SocketChannel socketChannel) {
-        ChannelPipeline pipeline = socketChannel.pipeline();
-        WebSocketPipelineFactory.configurePipeline(pipeline);
-    }
-}
-
-class WebSocketPipelineFactory {
-    static void configurePipeline(ChannelPipeline pipeline) {
         pipeline.addLast(new HttpServerCodec())
                 .addLast(new ChunkedWriteHandler())
                 .addLast(new HttpObjectAggregator(1024 * 64))

@@ -34,6 +34,7 @@ public class TokenValidationHandler extends SimpleChannelInboundHandler<TextWebS
 
     @Override
     public void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame tx) {
+        System.out.println("进入channelRead0： "+tx.text()+ctx.channel().remoteAddress());
         Command command = JSON.parseObject(tx.text(), Command.class);
         String token = command.getContent();
 
